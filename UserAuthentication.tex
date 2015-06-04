@@ -1,0 +1,94 @@
+\documentclass[conference]{IEEEtran}
+\usepackage[noadjust]{cite}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{graphicx}
+
+\hyphenation{op-tical net-works semi-conduc-tor}    
+
+\title{User Authentication\\via Mouse Movements}
+
+\author{Ryan Moormann \\ \IEEEauthorblockN{some author afiliation}
+\and
+Dr. K.A. Rahman\\ \IEEEauthorblockN{another affiliation}
+\and
+Danielle Dierich\\ \IEEEauthorblockN{another affiliation}
+}
+
+\begin{document}
+\maketitle
+
+
+\begin{abstract}
+The abstract goes here.
+\end{abstract}
+\IEEEpeerreviewmaketitle
+
+\section{Introduction}
+My intro... blah blah \cite{jj2}.
+
+\section{Data Collection}
+We wanted our data set to include movements that were natural to best simulate day to day actions a user would perform on the computer in order to have a more relevant set of data to what our authenticator would see in a practical environment. To do this we asked a class of students to record themselves and two other friends or family members. The students were told to instruct whomever was being recorded to go about any activity on the computer they normally would for an hour period.  
+	In order to log the mouse activity of users we created a simple mouse logger.  The logger was a small piece of software that ran on the windows operating system. The logger, when run on a machine, logged the position of the cursor using the windows method GetCursorPos(), the state of the left and right mouse buttons (up or down), and a timestamp every 15.6ms. 15.6ms being the default timer resolution that windows supports. The resulting log was then placed into a text file. 
+We then screened the samples and removed samples with very few (0 – 10) movements and samples that weren't an hour long. Post-screening we had 25 valid user samples.  Our samples consisted of university students and their friends and family collected from late November to early December 2014.
+
+\section{Feature Extraction}
+	We defined a mouse movement as a period of cursor movement followed by a click. This isn't to say that a click without any movement prior is not considered a mouse movement. It would be a mouse movement with no speed, acceleration, or jerk. If the cursor sustains no action for a period of 500ms or longer we classify that period as a pause to allow for periods where the user is not concentrating on moving the mouse or not moving it with conscious effort.
+
+\section{Methodology}
+Explain General method
+
+\subsection{Outlier Filtering}
+For our setup we first went through each of the user samples and extracted each of the features, as defined above, from each mouse movement. To remove rare cases of mouse movements where the user provides a mouse movement far from the mean we implemented an outlier removal scheme. We define a mouse feature to be an outlier if it is more eccentric than 66% of the population of the same mouse features for a single user. For example, if we are looking to find if a particular mouse feature M is an outlier:
+
+\begin{algorithm}
+\caption{F an outlier from a population of mouse movements}\label{euclid}
+\begin{algorithmic}[1]
+\Procedure{IsAnOutlier}{}
+\State $\textit{count} \gets 0$
+	\For{\textbf{each} $feature \textrm{ in } featurePopulation$}
+		\If{$feature_{type} \neq M_{type}$}
+			\If{$ |M - feature| > r$}
+				\State $count \gets 1$
+			\EndIf
+		\EndIf
+	\EndFor
+	\If{$count \div featurePopulation_{size} \ge .33$}
+		\State \Return{\texttt{True}}
+	\Else
+		\State \Return{\texttt{False}}
+	\EndIf
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+We defined the variable r, for each mouse feature, a number large enough to include most of the population while small enough to remove the noise from the data. We found optimal values for our r values after extensive experimentation we will describe later on.
+
+\subsection{Verification}
+	To authenticate a user based on their mouse movements we analyze six mouse features over the course of a sample. Our method is a simplistic user-authentication model. We create a profile based on a user's past behavior then test further samples against that profile to determine if the sample we test with is close enough to the previous profile to be considered the same user.  
+We then split the edited list of features into a testing set and a training set. For each file we create user profiles based on half of the user's sample (about 50 mouse movements on average for our samples). The profiles being simply the averages and standard deviations of each of the mouse features. The mouse movements from the sample that we did not use for the profile go into the user's testing set.
+Using a simple classification scoring method we can see how well a user profile and a testing set of data match up. For our entire set of data we took every user profile and tested each against every testing set. Our custom testing method generated a score for each test between 0 and 1. 1 being a perfect match and 0 being a perfect mismatch.
+We tested by comparing each of the mouse movements in a testing set against the users profile. If the features in the mouse movement are within m standard deviations of the corresponding means in the user profile then the test gets a point. The total amount of points accrued is divided by the total amount of mouse movements in the file to generate the score.
+	
+\section{Experimental Setup}
+We had a few parameters where it wasn’t immediately apparent how to set. For the R variables we needed values that can discriminate mouse feature values that are too eccentric while keeping as much unique data as possible. To solve this we ran a script that ran the tests and found the EER over an array of values for each parameter to determine the optimal values where the EER is at its lowest. We found that an M value of 1.9, a Single Click R of 15, and a Double Click R of 175 to produce the lowest EER for our set of data.
+
+\section{Experimental Results \& Analysis}
+To calculate the results of our experiment we took each users profile and tested that against every other set of testing data. This values in this generated confusion matrix are then used to calculate the false rejection rate and false acceptance rate. After finding the best settings for our parameters we obtained 10.14 equal error rate. 
+
+\includegraphics{s20}
+\includegraphics{s20}
+\includegraphics{s25}
+\includegraphics{s30}
+\includegraphics{s35}
+
+
+\section{Conclusion}
+
+\section*{Acknowledgment}
+We acknowledge the acknowledged acknowledgees.
+
+\bibliographystyle{IEEEtran}
+
+\end{document}
