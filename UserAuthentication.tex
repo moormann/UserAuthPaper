@@ -4,17 +4,16 @@
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
 \usepackage{graphicx}
+\usepackage{subcaption} 
+\usepackage{verbatimbox}
+\usepackage{multirow}
+\usepackage{pbox}
+\usepackage{tabularx}
+
 
 \hyphenation{op-tical net-works semi-conduc-tor}    
 
 \title{User Authentication\\via Mouse Movements}
-
-\author{Ryan Moormann \\ \IEEEauthorblockN{some author afiliation}
-\and
-Dr. K.A. Rahman\\ \IEEEauthorblockN{another affiliation}
-\and
-Danielle Dierich\\ \IEEEauthorblockN{another affiliation}
-}
 
 \begin{document}
 \maketitle
@@ -28,13 +27,61 @@ The abstract goes here.
 \section{Introduction}
 My intro... blah blah \cite{jj2}.
 
+\begin{figure}[h!]
+  \includegraphics[width=1\linewidth]{Overview.pdf}
+\caption{An overview of continuous verification with mouse movements. In the training phase a user creates a profile based on their mouse movements (The average and standard deviation of each mouse feature). The profile is used to represent a user in the verification phase where features from live mouse movements can be verified against the profile in order to determine if the live mouse movements came from the user who created the profile. If the verifier determines that the live mouse movements are illegitimate an action can be taken. ( e.g. logging the user out, creating a log of the incident, etc.)}
+\end{figure}
+
 \section{Data Collection}
 We wanted our data set to include movements that were natural to best simulate day to day actions a user would perform on the computer in order to have a more relevant set of data to what our authenticator would see in a practical environment. To do this we asked a class of students to record themselves and two other friends or family members. The students were told to instruct whomever was being recorded to go about any activity on the computer they normally would for an hour period.  
 	In order to log the mouse activity of users we created a simple mouse logger.  The logger was a small piece of software that ran on the windows operating system. The logger, when run on a machine, logged the position of the cursor using the windows method GetCursorPos(), the state of the left and right mouse buttons (up or down), and a timestamp every 15.6ms. 15.6ms being the default timer resolution that windows supports. The resulting log was then placed into a text file. 
 We then screened the samples and removed samples with very few (0 – 10) movements and samples that weren't an hour long. Post-screening we had 25 valid user samples.  Our samples consisted of university students and their friends and family collected from late November to early December 2014.
 
+
+\bgroup
+\def\arraystretch{1.5}
+\addvbuffer[12pt 8pt]{\begin{tabular}{l*{6}{c}r}
+\textbf{Type}              &\textbf{ Maximum} & \textbf{Minimum} & \textbf{Average} \\
+\hline
+Left Clicks	& 716 & 37 & 547.84 \\
+Right Clicks	& 690 & 0 & 122.8 \\
+Double Clicks	& 1282 & 1 & 181.64 \\
+
+\end{tabular}}
+\egroup
+\captionof{table}{Overview of the samples collected}
+
+
 \section{Feature Extraction}
 	We defined a mouse movement as a period of cursor movement followed by a click. This isn't to say that a click without any movement prior is not considered a mouse movement. It would be a mouse movement with no speed, acceleration, or jerk. If the cursor sustains no action for a period of 500ms or longer we classify that period as a pause to allow for periods where the user is not concentrating on moving the mouse or not moving it with conscious effort.
+
+\bgroup
+\def\arraystretch{1.5}
+\begin{table*}
+\begin{tabular}{m{.25\textwidth} | m{.75\textwidth}  }
+  
+ \textbf{ Feature}	&	\textbf{Description}\\
+ \hline
+ Single Left Click Length	&	\multirow{2}{*}{\pbox{20cm}{The length of a click from the first record the mouse button is found to be \\ down to the first record the mouse button is found to be up.}}\\
+\cline{1-1}
+ Single Right Click Length	&	\\
+\hline
+ Double Click Length	&	\pbox{20cm}{Split into 4 sub-features: Total Length and intervals 1,2, and 3.\\
+Total length: The time between the first record the mouse is found to be down and the first record the mouse\\ is found to be up after the second click.\\
+Interval 1: The first single left click length in a double click.\\
+Interval 2: The time between the first record of the left mouse button being found up after the first click to the\\ first record of the left mouse button being found down for the second left click.\\
+Interval 3: The second single left click length in a double click.}\\
+\hline
+ Speed			&	Distance the cursor travelled divided by the total time of the movement up until the click.\\
+\hline
+Acceleration			&	Change in Speed over time\\
+\hline
+Jerk				&	Change in Acceleration over time\\
+
+\end{tabular}
+\caption{Descriptions of the features used}
+\end{table*}
+\egroup
 
 \section{Methodology}
 Explain General method
@@ -43,14 +90,14 @@ Explain General method
 For our setup we first went through each of the user samples and extracted each of the features, as defined above, from each mouse movement. To remove rare cases of mouse movements where the user provides a mouse movement far from the mean we implemented an outlier removal scheme. We define a mouse feature to be an outlier if it is more eccentric than 66% of the population of the same mouse features for a single user. For example, if we are looking to find if a particular mouse feature M is an outlier:
 
 \begin{algorithm}
-\caption{F an outlier from a population of mouse movements}\label{euclid}
+\caption{Determines if a feature is an outlier from a population of mouse movements}\label{euclid}
 \begin{algorithmic}[1]
-\Procedure{IsAnOutlier}{}
+\Procedure{IsAnOutlier}{$M$}
 \State $\textit{count} \gets 0$
 	\For{\textbf{each} $feature \textrm{ in } featurePopulation$}
 		\If{$feature_{type} \neq M_{type}$}
-			\If{$ |M - feature| > r$}
-				\State $count \gets 1$
+			\If{$ |M - feature| > R$}
+				\State $count \gets count + 1$
 			\EndIf
 		\EndIf
 	\EndFor
@@ -74,14 +121,95 @@ We tested by comparing each of the mouse movements in a testing set against the 
 \section{Experimental Setup}
 We had a few parameters where it wasn’t immediately apparent how to set. For the R variables we needed values that can discriminate mouse feature values that are too eccentric while keeping as much unique data as possible. To solve this we ran a script that ran the tests and found the EER over an array of values for each parameter to determine the optimal values where the EER is at its lowest. We found that an M value of 1.9, a Single Click R of 15, and a Double Click R of 175 to produce the lowest EER for our set of data.
 
+\bgroup
+\def\arraystretch{1.5}
+\addvbuffer[12pt 8pt]{\begin{tabular}{ l| l}
+\textbf{Parameter}              &\textbf{ Values Tested} \\
+\hline
+Single Click R		& 15 20 25 30 25  \\
+Double Click R	& 175 180 185 190 195\\
+M Values		& 0.7 1 1.3 1.6 1.9 2.2 2.3\\
+\end{tabular}}
+\egroup
+\captionof{table}{The values used for our parameters for testing.}
+
 \section{Experimental Results \& Analysis}
 To calculate the results of our experiment we took each users profile and tested that against every other set of testing data. This values in this generated confusion matrix are then used to calculate the false rejection rate and false acceptance rate. After finding the best settings for our parameters we obtained 10.14 equal error rate. 
 
-\includegraphics{s20}
-\includegraphics{s20}
-\includegraphics{s25}
-\includegraphics{s30}
-\includegraphics{s35}
+\bgroup
+\def\arraystretch{1.5}
+\addvbuffer[12pt 8pt]{\begin{tabular}{ l | l l l l l }
+     &  \textbf{175}  &  \textbf{180}  &  \textbf{185}  &  \textbf{190}  &  \textbf{195} \\
+\hline
+\textbf{.7}	&24.29\%	&14.85\%	&11.76\%	&11.76\%	&11.93\%\\
+\textbf{1}	&16.00\%	&26.09\%	&26.09\%	&27.96\%	&24.60\%\\
+\textbf{1.3}	&14.37\%	&15.83\%	&15.83\%	&12.18\%	&12.15\%\\
+\textbf{1.6}	&14.50\%	&12.00\%	&12.00\%	&11.26\%	&11.71\%\\
+\textbf{1.9}	&10.83\%	&12.00\%	&12.67\%	&12.02\%	&12.00\%\\
+\textbf{2.2}	&8.33\%	&10.57\%	&14.51\%	&12.97\%	&14.42\%\\
+\textbf{2.5}	&9.44\%	&11.65\%	&10.74\%	&11.65\%	&10.79\%\\
+\end{tabular}}
+\egroup
+\captionof{table}{The EER rates found across multiple parameter values. Each column is a separate double click R-value while each row is a separate M-value. The entire table is tested with one single click R-value set to 15ms.}
+
+
+\begin{figure*}[]
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{Optimal}
+  \caption{Optimal Settings\\Single Click R = 15ms Double Click R = 175ms\\M-Value = 2.2}
+  \label{fig:sfig1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{7M}
+  \caption{Single Click R = 35ms Double Click R = 195ms\\M-Value = 0.7}
+  \label{fig:sfig2}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{M1}
+  \caption{Single Click R = 20ms Double Click R = 180ms\\M-Value = 1}
+  \label{fig:sfig3}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{19M}
+  \caption{Single Click R = 30ms Double Click R = 190m\\ M-Value = 1.9}
+  \label{fig:sfig4}
+\end{subfigure}
+\caption{Plots of the False Rejection Rate and the False Acceptance Rate for four different parameter settings. The point at which the FRR and FAR intersect is the Equal Error Rate. }
+\label{fig:fig}
+\end{figure*}
+
+\begin{figure*}[]
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{s20}
+  \caption{Single Click R = 20ms}
+  \label{fig:sfig1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{s25}
+  \caption{Single Click R = 25ms}
+  \label{fig:sfig2}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{s30}
+  \caption{Single Click R = 30ms}
+  \label{fig:sfig3}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{s35}
+  \caption{Single Click R = 35ms}
+  \label{fig:sfig4}
+\end{subfigure}
+\caption{Scatter plots of EER over the ranges of the parameter values we chose. The X-axis is Double Click R-Values, the Y-axis is the EER. Each plot is a separate Single Click R value }
+\label{fig:fig}
+\end{figure*}
 
 
 \section{Conclusion}
