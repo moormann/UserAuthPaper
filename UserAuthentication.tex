@@ -1,6 +1,7 @@
 \documentclass[conference]{IEEEtran}
 \usepackage[noadjust]{cite}
 \usepackage{amsmath}
+\usepackage{notoccite}
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
 \usepackage{graphicx}
@@ -26,10 +27,10 @@
 \begin{abstract}
 Behavioral biometrics such as mouse dynamics is gaining attention these days to address the limitations of
 conventional verification systems. In this paper we present a novel method to continuously verify a system user via
-his/her mouse activities. Our method, based on simple statistics, was tested using 45 users’ 76,500 mouse activities.
+his/her mouse activities. Our method, based on simple statistical profile, was tested using 45 users’ 76,500 mouse activities.
 A total of 354,375 genuine and impostor verification attempts have been performed by deploying 175 different verifier
 setups. In our experiments, we achieved an impressive low Equal Error Rate (EER) of 6.72\%. On average the EER
-was 13.42\%. We opine that, our method can complement the regular security systems and can serve better for
+was 13.42\%. We opine that, our method can complement the regular verification systems and can serve better for
 continuous verification purpose because of its simplicity.
 \end{abstract}
 \begin{IEEEkeywords} 
@@ -42,7 +43,7 @@ Continuous Verification.
 \section{Introduction \& Background}
 
 
-While relatively new, mouse dynamic user authentication does have existing research. The research already done, however, has limitations. The majority of the existing research was done with a relatively small population. Using a small population when conducting research can affect the results of that research. Larger sample sizes allow for more accurate results. Another limitation present in existing research is high false acceptance rates. When testing for authentication, the amount of false acceptances should be as close to 0\% as possible. False acceptance means that a user passed as a different user, falsely passing the authentication test. False rejection rates were also higher than the percentage preferred. False rejection occurs when the correct user fails the authentication test and is rejected. This percentage should also ideally be at 0%. Having both higher false acceptance rates and false rejection rates leaves room for improvement on the research conducted. Research regarding mouse dynamic user authentication that has seen high success rates is when the authentication is used as a login measure, for example, using the mouse to draw a pattern to log into a machine instead of typing in a password or scanning a fingerprint. There are limitations to this research as well, the biggest being that drawing a pattern with the mouse can easily be reproduced. Also, this form of authentication is performed once and the user is granted access, it does not continuously verify that user.
+While relatively new, mouse dynamic user authentication does have existing research. The research already done, however, has limitations. The majority of the existing research was done with a relatively small population. Using a small population when conducting research can affect the results of that research. Larger sample sizes allow for more accurate results. Another limitation present in existing research is high false acceptance rates. When testing for authentication, the amount of false acceptances should be as close to 0\% as possible. Having both higher false acceptance rates and false rejection rates leaves room for improvement on the research conducted. Research regarding mouse dynamic user authentication that has seen high success rates is when the authentication is used as a login measure, for example, using the mouse to draw a pattern to log into a machine instead of typing in a password or scanning a fingerprint. There are limitations to this research as well, the biggest being that drawing a pattern with the mouse can easily be reproduced. Also, this form of authentication is performed once and the user is granted access, it does not continuously verify that user.
 
 One significant limitation in existing mouse dynamic user authentication research is the high false acceptance rates and false rejection rates. High FAR and FRR percentages mean that the system has low accuracy when successfully rejecting or accepting a user. We see this occurring with multiple accounts of previous research done in this area \cite{Jor, CS, Sch}. One of these research procedures only took into account mouse curves when authenticating a user \cite{Sch}. This could be the reason they saw such high FAR and FRR rates, successful authentication is more difficult to achieve when only a few characteristics are used to build a user profile. In order to create a more practical and accurate system for mouse dynamic user authentication, FAR and FRR rates need to be significantly lower.
 
@@ -50,7 +51,7 @@ There has been some previous research done with very promising results. However,
 
 Some promising research that has been done so far in this area used 37 subjects, saw relatively low FAR and FRR rates at slightly under 10\%, and used a fast authentication time at 11.8 seconds \cite{CS}. Even this research could see improvement though. While the FAR and FRR rates are lower than most other research with a fast authentication time, they are still higher than what is desired. If lower FAR and FRR rates could be achieved at an even faster authentication time, practicality of the system would increase. Another instance of promising results found in this area of research saw an equal error rate of 1.3\%. The researchers that conducted this research had an interesting point when discussing their results. They said that while their results were promising, they did not expect the results to stay as accurate if a larger sample size was used. They came to this conclusion based off of research done on keystroke dynamics, saying that larger sample sizes make chances of two users having similar characteristics increases significantly \cite{Zhe}.
 
-The most promising existing mouse dynamic authentication research achieved false acceptance rates at 0\% and false rejection rates at 0.36\%. The results achieved in this research make it the first conducted on mouse dynamics as a continuous verification system to reach the European standard for access control, which is a FAR rate less than 0.001\% and a FRR rate less than 1\% \cite{Nak}. Our method of determining user authentication by mouse dynamics is different from what was done in this research. The goal for our research would be to produce results similar to what they have achieved.
+The most promising existing mouse dynamic authentication research achieved false acceptance rates at 0\% and false rejection rates at 0.36\%. The results achieved in this research make it the first conducted on mouse dynamics as a continuous verification system to reach the European standard for access control, which is a FAR rate less than 0.001\% and a FRR rate less than 1\% \cite{Nak}.
 
 One method of mouse authentication that has seen very promising and positive results is using the mouse as a login procedure. One research procedure had users use the mouse to login as if unlocking a combination lock. They saw successful results with low false rejection and false acceptance rates \cite{HJ}. Another research procedure had users draw a complex figure with the mouse to login. They saw a 93\% successful verification rate with their research \cite{Syu}. While the results of mouse authentication through the use of a mouse to draw a pattern to login into a system are promising, it is not as practical as a continuous verification system would be. Drawing a pattern with the mouse is more easily replicated than a user’s specific and unique everyday normal use of the mouse.   
 
@@ -63,12 +64,10 @@ Our research on mouse dynamic user authentication addresses the limitations talk
 \end{figure}
 
 
-
-
 \section{Data Collection}
-We wanted our data set to include movements that were natural to best simulate day to day actions a user would perform on the computer in order to have a more relevant set of data to what our authenticator would see in a practical environment. To do this we asked a class of students to record themselves and two other friends or family members. The students were told to instruct whomever was being recorded to go about any activity on the computer they normally would for an hour period.  
+We wanted our data set to include movements that were natural to best simulate day to day actions a user would perform on the computer in order to have a more relevant set of data to what our authenticator would see in a practical environment. To do this we asked a class of students to record themselves. The students were told to instruct whomever was being recorded to go about any activity on the computer they normally would for an hour period.  
 	In order to log the mouse activity of users we created a simple mouse logger.  The logger was a small piece of software that ran on the windows operating system. The logger, when run on a machine, logged the position of the cursor using the windows method GetCursorPos(), the state of the left and right mouse buttons (up or down), and a timestamp every 15.6ms. 15.6ms being the default timer resolution that windows supports. The resulting log was then placed into a text file. 
-We then screened the samples and removed samples with very few (0 – 10) movements and samples that weren't an hour long. Post-screening we had 25 valid user samples.  Our samples consisted of university students and their friends and family collected from late November to early December 2014.
+We then screened the samples and removed samples with very few (0 \– 10) movements and samples that weren't an hour long. Post-screening we had 25 valid user samples.  Our samples consisted of university students and their friends and family collected from late November to early December 2014.
 
 
 \bgroup
@@ -278,7 +277,6 @@ We acknowledge the acknowledged acknowledgees.
 
 \begin{thebibliography}{100} % 100 is a random guess of the total number of
 %references
-
 
 \bibitem{Ahmed} A. Ahmed and I. Traore, 'A New Biometric Technology Based on Mouse Dynamics', IEEE Trans. Dependable and Secure Comput., vol. 4, no. 3, pp. 165-179, 2007.
 \bibitem{CS} Chao Shen, Zhongmin Cai, Xiaohong Guan, Youtian Du and R. Maxion, 'User Authentication Through Mouse Dynamics', IEEE Trans.Inform.Forensic Secur., vol. 8, no. 1, pp. 16-30, 2013.
