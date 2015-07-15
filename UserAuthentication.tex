@@ -9,7 +9,7 @@
 \usepackage{verbatimbox}
 \usepackage{multirow}
 \usepackage{pbox}
-\usepackage{tabularx}
+\usepackage{tabularx} 
 \usepackage{adjustbox}
 \usepackage{rotating}
 \usepackage{epstopdf}
@@ -65,9 +65,9 @@ Our research on mouse dynamic user authentication addresses the limitations talk
 
 
 \section{Data Collection}
-We wanted our data set to include movements that were natural to best simulate day to day actions a user would perform on the computer in order to have a more relevant set of data to what our authenticator would see in a practical environment. To do this we asked a class of students to record themselves. The students were told to instruct whomever was being recorded to go about any activity on the computer they normally would for an hour period.  
+We wanted our data set to include movements that were natural to best simulate day to day actions a user would perform on the computer in order to have a more relevant set of data to what our authenticator would see in a practical environment. To do this, we asked a class of students to record their mouse movements. The students were instructed to perform any activity on the computer they normally would for an hour period.  
 	In order to log the mouse activity of users we created a simple mouse logger.  The logger was a small piece of software that ran on the windows operating system. The logger, when run on a machine, logged the position of the cursor using the windows method GetCursorPos(), the state of the left and right mouse buttons (up or down), and a timestamp every 15.6ms. 15.6ms being the default timer resolution that windows supports. The resulting log was then placed into a text file. 
-We then screened the samples and removed samples with very few (0 \– 10) movements and samples that weren't an hour long. Post-screening we had 25 valid user samples.  Our samples consisted of university students and their friends and family collected from late November to early December 2014.
+We then screened the samples and removed samples with very few (0 to 10) movements and samples that weren't an hour long. Post-screening we had 25 valid user samples.  Our samples consisted of university students and their friends and family collected from late November to early December 2014.
 
 
 \bgroup
@@ -85,13 +85,14 @@ Double Clicks	& 1282 & 1 & 181.64 \\
 
 
 \section{Feature Extraction}
+    In order to classify a test sample we needed some way to compare test samples and training samples. To do this we used features that are found in our definition of a mouse movement. The features, defined in Table \ref{tbl:definitions} and visualized in Figure \ref{fig:visualdefinition}, were found to be unique between users. In total we had 6 features. The double click length feature is interesting in that it contains 3 sub features allowing each sample to have a unique double click feature even if the entire length of the double clicks happen to be the same.
 	We defined a mouse movement as a period of cursor movement followed by a click. This isn't to say that a click without any movement prior is not considered a mouse movement. It would be a mouse movement with no speed, acceleration, or jerk. If the cursor sustains no action for a period of 500ms or longer we classify that period as a pause to allow for periods where the user is not concentrating on moving the mouse or not moving it with conscious effort.
 
 \bgroup
 \def\arraystretch{1.5}
 \begin{table*}
 \begin{tabular}{m{.25\textwidth} | m{.75\textwidth}  }
-  
+\label{tbl:definitions}
  \textbf{ Feature}	&	\textbf{Description}\\
  \hline
  Single Left Click Length	&	\multirow{2}{*}{\pbox{20cm}{The length of a click from the first record the mouse button is found to be \\ down to the first record the mouse button is found to be up.}}\\
@@ -154,6 +155,7 @@ We created a simple algorithm for determining if a particular record of a mouse 
 
 \begin{figure}[t]
   \includegraphics[width=1\linewidth]{clickDiag}
+  \label{fig:visualdefinition}
   \caption{A visual representation of the click features. Dashes representing no button activity, dots representing periods where the mouse button is down, and vertical bars representing the first record that the mouse button has changed state.}
 \end{figure}
 
@@ -178,7 +180,7 @@ Double Click R	& 175 180 185 190 195\\
 M Values		& 0.7 1 1.3 1.6 1.9 2.2 2.3\\
 \end{tabular}}
 \egroup
-\captionof{table}{The values used for our parameters for testing.}
+\captionof{table}{The values used for our parameters for testing. By varying the parameter value we experimented with 175 (5 Single Click R x 5 Double Click R x 7 M Values) different experimental set-ups. Note that we do not use any R parameter for the other features since they show less variance. In total, we experimented with 354,357 verification attempts (45 users x 45 users x 175 experimental set-ups).}
 
 
 
