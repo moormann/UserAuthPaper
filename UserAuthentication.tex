@@ -85,14 +85,14 @@ Double Clicks	& 1282 & 1 & 181.64 \\
 
 
 \section{Feature Extraction}
-    In order to classify a test sample we needed some way to compare test samples and training samples. To do this we used features that are found in our definition of a mouse movement. The features, defined in Table \ref{tbl:definitions} and visualized in Figure \ref{fig:visualdefinition}, were found to be unique between users. In total we had 6 features. The double click length feature is interesting in that it contains 3 sub features allowing each sample to have a unique double click feature even if the entire length of the double clicks happen to be the same.
-	We defined a mouse movement as a period of cursor movement followed by a click. This isn't to say that a click without any movement prior is not considered a mouse movement. It would be a mouse movement with no speed, acceleration, or jerk. If the cursor sustains no action for a period of 500ms or longer we classify that period as a pause to allow for periods where the user is not concentrating on moving the mouse or not moving it with conscious effort.
+    In order to classify a test sample we needed some way to compare test samples and training samples. To do this we used features that are found in our definition of a mouse movement. The features, defined in Table \ref{tbl:definitions} and visualized in Figure \ref{fig:visualdefinition}, were found to be unique between users. In total we had 6 features and 3 sub-features. The double click length feature is interesting in that it contains 3 sub features allowing each sample to have a unique double click feature even if the entire length of the double clicks happen to be the same.\\
+	We defined a mouse movement as a period of cursor movement followed by a click. This isn't to say that a click without any movement prior is not considered a mouse movement. It would be a mouse movement with no speed, acceleration, or jerk. \\
+	If the cursor sustains no action for a period of 500ms or longer we classify that period and any preceding cursor movement as a pause. This allows for periods where a user is not concentrating on moving the mouse with intent while not having it effect periods where a user is moving th emouse with intent. We do not use pauses for classification in our method.
 
 \bgroup
 \def\arraystretch{1.5}
 \begin{table*}
 \begin{tabular}{m{.25\textwidth} | m{.75\textwidth}  }
-\label{tbl:definitions}
  \textbf{ Feature}	&	\textbf{Description}\\
  \hline
  Single Left Click Length	&	\multirow{2}{*}{\pbox{20cm}{The length of a click from the first record the mouse button is found to be \\ down to the first record the mouse button is found to be up.}}\\
@@ -103,7 +103,8 @@ Double Clicks	& 1282 & 1 & 181.64 \\
 Total length: The time between the first record the mouse is found to be down and the first record the mouse\\ is found to be up after the second click.\\
 Interval 1: The first single left click length in a double click.\\
 Interval 2: The time between the first record of the left mouse button being found up after the first click to the\\ first record of the left mouse button being found down for the second left click.\\
-Interval 3: The second single left click length in a double click.}\\
+Interval 3: The second single left click length in a double click.\\
+Note: A visualization of the intervals in Fig. \ref{fig:visualdefinition}}\\
 \hline
  Speed			&	Distance the cursor travelled divided by the total time of the movement up until the click.\\
 \hline
@@ -112,7 +113,7 @@ Acceleration			&	Change in Speed over time\\
 Jerk				&	Change in Acceleration over time\\
 
 \end{tabular}
-\caption{Descriptions of the features used}
+\caption{Descriptions of the features used\label{tbl:definitions}}
 \end{table*}
 \egroup
 
@@ -155,15 +156,14 @@ We created a simple algorithm for determining if a particular record of a mouse 
 
 \begin{figure}[t]
   \includegraphics[width=1\linewidth]{clickDiag}
-  \label{fig:visualdefinition}
-  \caption{A visual representation of the click features. Dashes representing no button activity, dots representing periods where the mouse button is down, and vertical bars representing the first record that the mouse button has changed state.}
+  \caption{A visual representation of the click features. Dashes representing no button activity, dots representing periods where the mouse button is down, and vertical bars representing the first record that the mouse button has changed state.  \label{fig:visualdefinition}}
 \end{figure}
 
 \subsection{Verification}
 	To authenticate a user based on their mouse movements we analyze six mouse features over the course of a sample. Our method is a simplistic user-authentication model. We create a profile based on a user's past behavior then test further samples against that profile to determine if the sample we test with is close enough to the previous profile to be considered the same user.  
 We then split the edited list of features into a testing set and a training set. For each file we create user profiles based on half of the user's sample (about 50 mouse movements on average for our samples). The profiles being simply the averages and standard deviations of each of the mouse features. The mouse movements from the sample that we did not use for the profile go into the user's testing set.
-Using a simple classification scoring method we can see how well a user profile and a testing set of data match up. For our entire set of data we took every user profile and tested each against every testing set. Our custom testing method generated a score for each test between 0 and 1. 1 being a perfect match and 0 being a perfect mismatch.
-We tested by comparing each of the mouse movements in a testing set against the users profile. If the features in the mouse movement are within m standard deviations of the corresponding means in the user profile then the test gets a point. The total amount of points accrued is divided by the total amount of mouse movements in the file to generate the score.
+Using a simple classification scoring method we can see how well a user profile and a testing set of data match up. For our entire set of data we took every user profile and tested each against every testing set. Our custom testing method generated a score for each test between 0 and 1 based on a simple scoring formula \( score = \frac{Number Of Accepted Features}{Total Number Of Features} \). 1 being a perfect match and 0 being a perfect mismatch. It should be noted we accept a particular feature if \(Average_{Training} - M * STD_{Training} \leq featureValue \leq Average_{Training} + M * STD_{Training} \).
+We tested by comparing each of the mouse movements in a testing set against the users profile. If the features in the mouse movement are within $M$ standard deviations of the corresponding means in the user profile then the test gets a point. The total amount of points accrued is divided by the total amount of mouse movements in the file to generate the score.
 	
 
 
@@ -279,14 +279,15 @@ We acknowledge the acknowledged acknowledgees.
 
 \begin{thebibliography}{100} % 100 is a random guess of the total number of
 %references
+\bibliographystyle{ieeetr}
 
-\bibitem{Ahmed} A. Ahmed and I. Traore, 'A New Biometric Technology Based on Mouse Dynamics', IEEE Trans. Dependable and Secure Comput., vol. 4, no. 3, pp. 165-179, 2007.
 \bibitem{CS} Chao Shen, Zhongmin Cai, Xiaohong Guan, Youtian Du and R. Maxion, 'User Authentication Through Mouse Dynamics', IEEE Trans.Inform.Forensic Secur., vol. 8, no. 1, pp. 16-30, 2013.
-\bibitem{HJ} H. Jahankhani, D. Palmer-Brown and K. Revett, 'A Survey of User Authentication Based on Mouse Dynamics', Global E-Security. Berlin, Heidelberg: Springer-Verlag Berlin Heidelberg, 2008, pp. 210-219.
 \bibitem{Jor} Z. Jorgensen and T. Yu, 'On mouse dynamics as a behavioral biometric for authentication', Proceedings of the 6th ACM Symposium on Information, Computer and Communications Security - ASIACCS '11, pp. 476-482, 2011.
+\bibitem{Sch}D. Schulz, 'Mouse Curve Biometrics', 2006 Biometrics Symposium: Special Session on Research at the Biometric Consortium Conference, 2006.
+\bibitem{HJ} H. Jahankhani, D. Palmer-Brown and K. Revett, 'A Survey of User Authentication Based on Mouse Dynamics', Global E-Security. Berlin, Heidelberg: Springer-Verlag Berlin Heidelberg, 2008, pp. 210-219.
+\bibitem{Ahmed} A. Ahmed and I. Traore, 'A New Biometric Technology Based on Mouse Dynamics', IEEE Trans. Dependable and Secure Comput., vol. 4, no. 3, pp. 165-179, 2007.
 \bibitem{Nak}Y. Nakkabi, I. Traore and A. Ahmed, 'Improving Mouse Dynamics Biometric Performance Using Variance Reduction via Extractors With Separate Features', IEEE Trans. Syst., Man, Cybern. A, vol. 40, no. 6, pp. 1345-1353, 2010.
 \bibitem{Pus}M. Pusara and C. Brodley, 'User re-authentication via mouse movements', Proceedings of the 2004 ACM workshop on Visualization and data mining for computer security - VizSEC/DMSEC '04, 2004.
-\bibitem{Sch}D. Schulz, 'Mouse Curve Biometrics', 2006 Biometrics Symposium: Special Session on Research at the Biometric Consortium Conference, 2006.
 \bibitem{She}C. Shen, Z. Cai, X. Guan, H. Sha and J. Du, 'Feature Analysis of Mouse Dynamics in Identity Authentication and Monitoring', 2009 IEEE International Conference on Communications, 2009.
 \bibitem{Syu}A. Syukri, E. Okamoto and M. Mambo, 'A user identification system using signature written with mouse', Information Security and Privacy, pp. 403-414, 1998.
 \bibitem{Zhe}N. Zheng, A. Paloski and H. Wang, 'An efficient user verification system via mouse movements', Proceedings of the 18th ACM conference on Computer and communications security - CCS '11, pp. 139-150, 2011.

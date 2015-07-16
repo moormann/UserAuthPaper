@@ -1,6 +1,4 @@
 \relax 
-\bibstyle{unsrt}
-\bibstyle{unsrtnat}
 \citation{Jor,CS,Sch}
 \citation{Sch}
 \citation{Pus}
@@ -9,10 +7,10 @@
 \citation{CS}
 \citation{Zhe}
 \citation{Nak}
-\providecommand \oddpage@label [2]{}
-\@writefile{toc}{\contentsline {section}{\numberline {I}Introduction \& Background}{1}}
 \citation{HJ}
 \citation{Syu}
+\providecommand \oddpage@label [2]{}
+\@writefile{toc}{\contentsline {section}{\numberline {I}Introduction \& Background}{1}}
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces An overview of continuous verification with mouse movements. In the training phase a user creates a profile based on their mouse movements (The average and standard deviation of each mouse feature). The profile is used to represent a user in the verification phase where features from live mouse movements can be verified against the profile in order to determine if the live mouse movements came from the user who created the profile. If the verifier determines that the live mouse movements are illegitimate an action can be taken. ( e.g. logging the user out, creating a log of the incident, etc.)\relax }}{2}}
 \@writefile{toc}{\contentsline {section}{\numberline {II}Data Collection}{2}}
 \@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Overview of the samples collected\relax }}{2}}
@@ -20,28 +18,31 @@
 \@writefile{toc}{\contentsline {section}{\numberline {IV}Methodology}{2}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}}Outlier Filtering}{2}}
 \@writefile{lot}{\contentsline {table}{\numberline {II}{\ignorespaces Descriptions of the features used\relax }}{3}}
-\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Determines if a single feature $F$ is an outlier from the rest of the population of its own kind. $featurePopulation$ is an array of same-typed features from a testing sample that $F$ is also a member of.\relax }}{3}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{tbl:definitions}{{II}{3}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Determines if a single feature $F$ is an outlier from the rest of the population of its own kind. $featurePopulation$ is an array of same-typed features from a testing sample that $F$ is also a member of.\relax }}{3}}
 \newlabel{euclid}{{1}{3}}
 \newlabel{alg:algorithm1}{{1}{3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces A visual representation of the click features. Dashes representing no button activity, dots representing periods where the mouse button is down, and vertical bars representing the first record that the mouse button has changed state. \relax }}{3}}
+\newlabel{fig:visualdefinition}{{2}{3}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-B}}Verification}{3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces A visual representation of the click features. Dashes representing no button activity, dots representing periods where the mouse button is down, and vertical bars representing the first record that the mouse button has changed state.\relax }}{3}}
-\bibcite{Ahmed}{1}
-\bibcite{CS}{2}
-\bibcite{HJ}{3}
-\bibcite{Jor}{4}
-\bibcite{Nak}{5}
-\bibcite{Pus}{6}
-\bibcite{Sch}{7}
+\bibstyle{ieeetr}
+\bibcite{CS}{1}
+\bibcite{Jor}{2}
+\bibcite{Sch}{3}
+\bibcite{HJ}{4}
+\bibcite{Ahmed}{5}
+\bibcite{Nak}{6}
+\bibcite{Pus}{7}
 \bibcite{She}{8}
 \bibcite{Syu}{9}
-\bibcite{Zhe}{10}
 \@writefile{toc}{\contentsline {section}{\numberline {V}Experimental Setup}{4}}
-\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces The values used for our parameters for testing.\relax }}{4}}
+\@writefile{lot}{\contentsline {table}{\numberline {III}{\ignorespaces The values used for our parameters for testing. By varying the parameter value we experimented with 175 (5 Single Click R x 5 Double Click R x 7 M Values) different experimental set-ups. Note that we do not use any R parameter for the other features since they show less variance. In total, we experimented with 354,357 verification attempts (45 users x 45 users x 175 experimental set-ups).\relax }}{4}}
 \@writefile{toc}{\contentsline {section}{\numberline {VI}Experimental Results \& Analysis}{4}}
 \@writefile{lot}{\contentsline {table}{\numberline {IV}{\ignorespaces The EER rates found across multiple parameter values. Each column is a separate double click R-value while each row is a separate M-value. The entire table is tested with one single click R-value set to 20ms.\relax }}{4}}
 \@writefile{toc}{\contentsline {section}{\numberline {VII}Conclusion}{4}}
 \@writefile{toc}{\contentsline {section}{References}{4}}
+\bibcite{Zhe}{10}
 \newlabel{fig:sfig1}{{3a}{5}}
 \newlabel{sub@fig:sfig1}{{a}{5}}
 \newlabel{fig:sfig2}{{3b}{5}}
