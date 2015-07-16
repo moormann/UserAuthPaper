@@ -190,7 +190,36 @@ We defined the variable $R$, for each mouse feature, a number large enough to in
 We created a simple algorithm for determining if a particular record of a mouse feature is an outlier outlined in Algorithm \ref{alg:algorithm1}. For a given set of mouse features from a training sample (the $featurePopulation$), we compared each feature in the $featurePopulation$ against every other feature of the same type, i.e. a Single Left Click Length feature is only compared to every other Single Left Click Length feature. Then a simple tally is kept of how many of the features in the $featurePopulation$ have a distance greater than $R$ as shown on line 4 \& 5 of Algorithm \ref{alg:algorithm1}. On line 6 we simple restate that if the if the tally is greater than 33\% of the featurePopulation we claim the feature F is an outlier and discard it from the training set.
 
 
-\begin{figure}[t]
+\begin{figure*}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{Optimal}
+  \caption{Optimal Settings\\Single Click $R$ = 20ms Double Click $R$ = 185ms\\M-Value = 2.2}
+  \label{fig:sfig1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{7M}
+  \caption{Single Click $R$ = 35ms Double Click $R$ = 195ms\\M-Value = 0.7}
+  \label{fig:sfig2}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{M1}
+  \caption{Single Click $R$ = 20ms Double Click $R$ = 180ms\\M-Value = 1}
+  \label{fig:sfig3}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{19M}
+  \caption{Single Click $R$ = 30ms Double Click $R$ = 190m\\ M-Value = 1.9}
+  \label{fig:sfig4}
+\end{subfigure}
+\caption{Plots of the False Rejection Rate and the False Acceptance Rate for four different parameter settings. The point at which the FRR and FAR intersect is the Equal Error Rate. }
+\label{fig:fig}
+\end{figure*}
+
+\begin{figure}
   \includegraphics[width=1\linewidth]{clickDiag}
   \caption{A visual representation of the click features. Dashes representing no button activity, dots representing periods where the mouse button is down, and vertical bars representing the first record that the mouse button has changed state.  \label{fig:visualdefinition}}
 \end{figure}
@@ -220,6 +249,38 @@ We tested by comparing each of the mouse movements in a testing set against the 
 	
 
 
+
+\begin{figure*}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{15.eps}
+  \caption{Single Click $R$ = 15ms \\Local Max = 24.29\% Local Min = 8.33\% \\Local Average = 14.34\% Local STD = 5.08\%}
+\centering
+  \label{fig:sfig1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{25.eps}
+  \caption{Single Click $R$ = 25ms \\Local Max = 30.02\% Local Min = 6.77\% \\Local Average = 12.57\% Local STD = 6.07\%}
+  \label{fig:sfig2}
+\end{subfigure}
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{30.eps}
+  \caption{Single Click $R$ = 30ms \\Local Max = 29.96\% Local Min = 6.72\% \\Local Average = 12.58\% Local STD = 6.13\%}
+  \label{fig:sfig3}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+  \centering
+  \includegraphics[width=.8\linewidth]{35.eps}
+  \caption{Single Click $R$ = 35ms \\Local Max = 26\% Local Min = 7.04\%\\Local Average = 13.82\% Local STD = 5.54\%}
+  \label{fig:sfig4}
+\end{subfigure}
+\caption{Scatter plots of EER over the ranges of the parameter values we chose. The X-axis is Double Click R-Values, the Y-axis is the EER. Each plot is a separate Single Click $R$ value. \\Global Max = 30.02\% Global Min = 6.72\% Global Average = 13.19\% Global STD = 5.77\%}
+\label{fig:fig}
+\end{figure*}
+
+
 \section{Experimental Setup}
 We had a few parameters where it wasn’t immediately apparent how to set. For the $R$ variables we needed values that can discriminate mouse feature values that are too eccentric while keeping as much unique data as possible. To solve this we ran a script that ran the tests and found the EER over an array of values for each parameter to determine the optimal values where the EER is at its lowest. We found that an $M$ value of 1.9, a Single Click $R$ of 15, and a Double Click $R$ of 175 to produce the lowest EER for our set of data. By varying the parameter value we experimented with 175 (5 Single Click $R$ $\cdot$ 5 Double Click $R$ $\cdot$ 7 $M$ Values) different experimental set-ups. Note that we do not use any $R$ parameter for the other features since they show less variance. In total, we experimented with 354,357 verification attempts (45 users $\cdot$ 45 users $\cdot$ 175 experimental set-ups).
 
@@ -234,6 +295,8 @@ Double click $R$ value	& 175 180 185 190 195\\
 M value		& 0.7 1 1.3 1.6 1.9 2.2 2.3\\
 \end{tabular}}
 \egroup
+
+
 
 
 \section{Experimental Results \& Analysis}
@@ -270,65 +333,6 @@ To calculate the results of our experiment we took each users profile and tested
 \egroup
 
 
-
-\begin{figure}[p]
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.8\linewidth]{Optimal}
-  \caption{Optimal Settings\\Single Click $R$ = 20ms Double Click $R$ = 185ms\\M-Value = 2.2}
-  \label{fig:sfig1}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.8\linewidth]{7M}
-  \caption{Single Click $R$ = 35ms Double Click $R$ = 195ms\\M-Value = 0.7}
-  \label{fig:sfig2}
-\end{subfigure}
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.8\linewidth]{M1}
-  \caption{Single Click $R$ = 20ms Double Click $R$ = 180ms\\M-Value = 1}
-  \label{fig:sfig3}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.8\linewidth]{19M}
-  \caption{Single Click $R$ = 30ms Double Click $R$ = 190m\\ M-Value = 1.9}
-  \label{fig:sfig4}
-\end{subfigure}
-\caption{Plots of the False Rejection Rate and the False Acceptance Rate for four different parameter settings. The point at which the FRR and FAR intersect is the Equal Error Rate. }
-\label{fig:fig}
-\end{figure}
-
-\begin{figure}[p]
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.8\linewidth]{15.eps}
-  \caption{Single Click $R$ = 15ms \\Local Max = 24.29\% Local Min = 8.33\% \\Local Average = 14.34\% Local STD = 5.08\%}
-\centering
-  \label{fig:sfig1}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.8\linewidth]{25.eps}
-  \caption{Single Click $R$ = 25ms \\Local Max = 30.02\% Local Min = 6.77\% \\Local Average = 12.57\% Local STD = 6.07\%}
-  \label{fig:sfig2}
-\end{subfigure}
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.8\linewidth]{30.eps}
-  \caption{Single Click $R$ = 30ms \\Local Max = 29.96\% Local Min = 6.72\% \\Local Average = 12.58\% Local STD = 6.13\%}
-  \label{fig:sfig3}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-  \centering
-  \includegraphics[width=.8\linewidth]{35.eps}
-  \caption{Single Click $R$ = 35ms \\Local Max = 26\% Local Min = 7.04\%\\Local Average = 13.82\% Local STD = 5.54\%}
-  \label{fig:sfig4}
-\end{subfigure}
-\caption{Scatter plots of EER over the ranges of the parameter values we chose. The X-axis is Double Click R-Values, the Y-axis is the EER. Each plot is a separate Single Click $R$ value. \\Global Max = 30.02\% Global Min = 6.72\% Global Average = 13.19\% Global STD = 5.77\%}
-\label{fig:fig}
-\end{figure}
 
 
 \section{Conclusion}
