@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.6.2)  16 JUL 2015 13:59
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.6.2)  16 JUL 2015 16:08
 entering extended mode
 **C:/Users/remoorma/Desktop/UserAuthPaper/UserAuthentication.tex
 (C:/Users/remoorma/Desktop/UserAuthPaper/UserAuthentication.tex
@@ -503,18 +503,18 @@ LaTeX Warning: Label `sub@fig:sfig4' multiply defined.
 LaTeX Warning: Label `fig:fig' multiply defined.
 
 )
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
-LaTeX Font Info:    ... okay on input line 23.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
+LaTeX Font Info:    ... okay on input line 24.
 
 -- Lines per column: 56 (exact).
 (C:\Users\remoorma\Desktop\latex\tex\context\base\supp-pdf.mkii
@@ -534,74 +534,56 @@ LaTeX Font Info:    ... okay on input line 23.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: rotating package is loaded.
 Package caption Info: End \AtBeginDocument code.
-
-
-LaTeX Warning: No \author given.
-
-
-LaTeX Warning: No \author given.
-
-
-LaTeX Warning: No \author given.
-
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 40.
 Missing character: There is no â in font ptmb7t!
 Missing character: There is no € in font ptmb7t!
 Missing character: There is no ™ in font ptmb7t!
-[1{C:/Users/remoorma/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
-
-
-]
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no ™ in font ptmr7t!
-Missing character: There is no â in font ptmr7t!
-Missing character: There is no € in font ptmr7t!
-Missing character: There is no ™ in font ptmr7t!
-
-<Overview.pdf, id=8, 794.97pt x 406.51875pt>
+ <Overview.pdf, id=1, 794.97pt x 406.51875pt>
 File: Overview.pdf Graphic file (type pdf)
  <use Overview.pdf>
-Package pdftex.def Info: Overview.pdf used on input line 62.
+Package pdftex.def Info: Overview.pdf used on input line 69.
 (pdftex.def)             Requested size: 252.0pt x 128.86046pt.
 
-Underfull \vbox (badness 3679) has occurred while \output is active []
+Underfull \vbox (badness 1762) has occurred while \output is active []
+
+ [1{C:/Users/remoorma/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
-
-Package caption Warning: \captionsetup{type*=...} or \captionof
-(caption)                outside box or environment on input line 84.
-See the caption package documentation for explanation.
-
-[2 <C:/Users/remoorma/Desktop/UserAuthPaper/Overview.pdf>]
-Overfull \hbox (24.4pt too wide) in paragraph at lines 95--116
+ <C:/Users/remoorma/Desktop/UserAuthPaper/Overview.pdf>]
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no ™ in font ptmr7t!
+Missing character: There is no â in font ptmr7t!
+Missing character: There is no € in font ptmr7t!
+Missing character: There is no ™ in font ptmr7t!
+ [2]
+Overfull \hbox (24.4pt too wide) in paragraph at lines 117--138
 [][] 
  []
 
 
-Underfull \hbox (badness 1783) in paragraph at lines 131--131
+Underfull \hbox (badness 1783) in paragraph at lines 152--152
 \OT1/ptm/m/n/10 lier from the rest of the pop-u-la-tion of its own kind.
  []
 
-LaTeX Font Info:    Try loading font information for OT1+pcr on input line 142.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 163.
 
 (C:\Users\remoorma\Desktop\latex\tex\latex\psnfss\ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-<clickDiag.png, id=33, 440.39531pt x 328.22626pt>
+<clickDiag.png, id=34, 440.39531pt x 328.22626pt>
 File: clickDiag.png Graphic file (type png)
  <use clickDiag.png>
-Package pdftex.def Info: clickDiag.png used on input line 158.
+Package pdftex.def Info: clickDiag.png used on input line 179.
 (pdftex.def)             Requested size: 252.0pt x 187.8121pt.
+ [3 <C:/Users/remoorma/Desktop/UserAuthPaper/clickDiag.png>]
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no ™ in font ptmr7t!
- [3 <C:/Users/remoorma/Desktop/UserAuthPaper/clickDiag.png>]
-Overfull \hbox (6.02312pt too wide) in paragraph at lines 207--209
+
+Overfull \hbox (6.02312pt too wide) in paragraph at lines 245--247
 [][] 
  []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
 Package epstopdf Info: Source file: <Optimal.eps>
 (epstopdf)                    date: 2015-07-16 13:19:31
@@ -611,14 +593,13 @@ Package epstopdf Info: Source file: <Optimal.eps>
 (epstopdf)                    size: 5697 bytes
 (epstopdf)             Command: <epstopdf --outfile=Optimal-eps-converted-to.pd
 f Optimal.eps>
-(epstopdf)             \includegraphics on input line 215.
+(epstopdf)             \includegraphics on input line 253.
 Package epstopdf Info: Output file is already uptodate.
-
-<Optimal-eps-converted-to.pdf, id=43, 589.20125pt x 349.305pt>
+<Optimal-eps-converted-to.pdf, id=44, 589.20125pt x 349.305pt>
 File: Optimal-eps-converted-to.pdf Graphic file (type pdf)
 
 <use Optimal-eps-converted-to.pdf>
-Package pdftex.def Info: Optimal-eps-converted-to.pdf used on input line 215.
+Package pdftex.def Info: Optimal-eps-converted-to.pdf used on input line 253.
 (pdftex.def)             Requested size: 206.40079pt x 122.36517pt.
 Package epstopdf Info: Source file: <7M.eps>
 (epstopdf)                    date: 2015-07-16 13:19:18
@@ -628,14 +609,14 @@ Package epstopdf Info: Source file: <7M.eps>
 (epstopdf)                    size: 5673 bytes
 (epstopdf)             Command: <epstopdf --outfile=7M-eps-converted-to.pdf 7M.
 eps>
-(epstopdf)             \includegraphics on input line 221.
+(epstopdf)             \includegraphics on input line 259.
 Package epstopdf Info: Output file is already uptodate.
 
-<7M-eps-converted-to.pdf, id=44, 589.20125pt x 349.305pt>
+<7M-eps-converted-to.pdf, id=45, 589.20125pt x 349.305pt>
 File: 7M-eps-converted-to.pdf Graphic file (type pdf)
 
 <use 7M-eps-converted-to.pdf>
-Package pdftex.def Info: 7M-eps-converted-to.pdf used on input line 221.
+Package pdftex.def Info: 7M-eps-converted-to.pdf used on input line 259.
 (pdftex.def)             Requested size: 206.40079pt x 122.36517pt.
 Package epstopdf Info: Source file: <M1.eps>
 (epstopdf)                    date: 2015-07-16 13:19:42
@@ -645,14 +626,14 @@ Package epstopdf Info: Source file: <M1.eps>
 (epstopdf)                    size: 5668 bytes
 (epstopdf)             Command: <epstopdf --outfile=M1-eps-converted-to.pdf M1.
 eps>
-(epstopdf)             \includegraphics on input line 227.
+(epstopdf)             \includegraphics on input line 265.
 Package epstopdf Info: Output file is already uptodate.
 
-<M1-eps-converted-to.pdf, id=45, 589.20125pt x 349.305pt>
+<M1-eps-converted-to.pdf, id=46, 589.20125pt x 349.305pt>
 File: M1-eps-converted-to.pdf Graphic file (type pdf)
 
 <use M1-eps-converted-to.pdf>
-Package pdftex.def Info: M1-eps-converted-to.pdf used on input line 227.
+Package pdftex.def Info: M1-eps-converted-to.pdf used on input line 265.
 (pdftex.def)             Requested size: 206.40079pt x 122.36517pt.
 Package epstopdf Info: Source file: <19M.eps>
 (epstopdf)                    date: 2015-07-16 13:20:22
@@ -662,15 +643,25 @@ Package epstopdf Info: Source file: <19M.eps>
 (epstopdf)                    size: 6617 bytes
 (epstopdf)             Command: <epstopdf --outfile=19M-eps-converted-to.pdf 19
 M.eps>
-(epstopdf)             \includegraphics on input line 233.
+(epstopdf)             \includegraphics on input line 271.
 Package epstopdf Info: Output file is already uptodate.
 
-<19M-eps-converted-to.pdf, id=46, 587.19376pt x 349.305pt>
+<19M-eps-converted-to.pdf, id=47, 587.19376pt x 349.305pt>
 File: 19M-eps-converted-to.pdf Graphic file (type pdf)
 
 <use 19M-eps-converted-to.pdf>
-Package pdftex.def Info: 19M-eps-converted-to.pdf used on input line 233.
+Package pdftex.def Info: 19M-eps-converted-to.pdf used on input line 271.
 (pdftex.def)             Requested size: 206.40079pt x 122.78091pt.
+
+Overfull \hbox (264.0pt too wide) in paragraph at lines 251--275
+[]$[]$$[]$
+ []
+
+
+Overfull \hbox (264.0pt too wide) in paragraph at lines 251--275
+$[]$$[]$ 
+ []
+
 Package epstopdf Info: Source file: <15.eps>
 (epstopdf)                    date: 2015-07-16 13:20:31
 (epstopdf)                    size: 14517 bytes
@@ -679,14 +670,13 @@ Package epstopdf Info: Source file: <15.eps>
 (epstopdf)                    size: 5554 bytes
 (epstopdf)             Command: <epstopdf --outfile=15-eps-converted-to.pdf 15.
 eps>
-(epstopdf)             \includegraphics on input line 244.
+(epstopdf)             \includegraphics on input line 282.
 Package epstopdf Info: Output file is already uptodate.
-
-<15-eps-converted-to.pdf, id=47, 587.19376pt x 349.305pt>
+<15-eps-converted-to.pdf, id=48, 587.19376pt x 349.305pt>
 File: 15-eps-converted-to.pdf Graphic file (type pdf)
 
 <use 15-eps-converted-to.pdf>
-Package pdftex.def Info: 15-eps-converted-to.pdf used on input line 244.
+Package pdftex.def Info: 15-eps-converted-to.pdf used on input line 282.
 (pdftex.def)             Requested size: 206.40079pt x 122.78091pt.
 Package epstopdf Info: Source file: <25.eps>
 (epstopdf)                    date: 2015-07-16 13:20:07
@@ -696,14 +686,14 @@ Package epstopdf Info: Source file: <25.eps>
 (epstopdf)                    size: 5594 bytes
 (epstopdf)             Command: <epstopdf --outfile=25-eps-converted-to.pdf 25.
 eps>
-(epstopdf)             \includegraphics on input line 251.
+(epstopdf)             \includegraphics on input line 289.
 Package epstopdf Info: Output file is already uptodate.
 
-<25-eps-converted-to.pdf, id=48, 587.19376pt x 349.305pt>
+<25-eps-converted-to.pdf, id=49, 587.19376pt x 349.305pt>
 File: 25-eps-converted-to.pdf Graphic file (type pdf)
 
 <use 25-eps-converted-to.pdf>
-Package pdftex.def Info: 25-eps-converted-to.pdf used on input line 251.
+Package pdftex.def Info: 25-eps-converted-to.pdf used on input line 289.
 (pdftex.def)             Requested size: 206.40079pt x 122.78091pt.
 Package epstopdf Info: Source file: <30.eps>
 (epstopdf)                    date: 2015-07-16 13:19:59
@@ -713,14 +703,14 @@ Package epstopdf Info: Source file: <30.eps>
 (epstopdf)                    size: 5546 bytes
 (epstopdf)             Command: <epstopdf --outfile=30-eps-converted-to.pdf 30.
 eps>
-(epstopdf)             \includegraphics on input line 257.
+(epstopdf)             \includegraphics on input line 295.
 Package epstopdf Info: Output file is already uptodate.
 
-<30-eps-converted-to.pdf, id=49, 587.19376pt x 349.305pt>
+<30-eps-converted-to.pdf, id=50, 587.19376pt x 349.305pt>
 File: 30-eps-converted-to.pdf Graphic file (type pdf)
 
 <use 30-eps-converted-to.pdf>
-Package pdftex.def Info: 30-eps-converted-to.pdf used on input line 257.
+Package pdftex.def Info: 30-eps-converted-to.pdf used on input line 295.
 (pdftex.def)             Requested size: 206.40079pt x 122.78091pt.
 Package epstopdf Info: Source file: <35.eps>
 (epstopdf)                    date: 2015-07-16 13:19:51
@@ -730,16 +720,26 @@ Package epstopdf Info: Source file: <35.eps>
 (epstopdf)                    size: 5444 bytes
 (epstopdf)             Command: <epstopdf --outfile=35-eps-converted-to.pdf 35.
 eps>
-(epstopdf)             \includegraphics on input line 263.
+(epstopdf)             \includegraphics on input line 301.
 Package epstopdf Info: Output file is already uptodate.
 
-<35-eps-converted-to.pdf, id=50, 587.19376pt x 349.305pt>
+<35-eps-converted-to.pdf, id=51, 587.19376pt x 349.305pt>
 File: 35-eps-converted-to.pdf Graphic file (type pdf)
 
 <use 35-eps-converted-to.pdf>
-Package pdftex.def Info: 35-eps-converted-to.pdf used on input line 263.
+Package pdftex.def Info: 35-eps-converted-to.pdf used on input line 301.
 (pdftex.def)             Requested size: 206.40079pt x 122.78091pt.
- [4]
+
+Overfull \hbox (264.0pt too wide) in paragraph at lines 280--305
+[]$[]$$[]$
+ []
+
+
+Overfull \hbox (264.0pt too wide) in paragraph at lines 280--305
+$[]$$[]$ 
+ []
+
+[4]
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -751,41 +751,42 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-[5
+[5 <C:/Users/remoorma/Desktop/UserAuthPaper/Optimal-eps-converted-to.pdf> <C:/U
+sers/remoorma/Desktop/UserAuthPaper/7M-eps-converted-to.pdf> <C:/Users/remoorma
+/Desktop/UserAuthPaper/M1-eps-converted-to.pdf> <C:/Users/remoorma/Desktop/User
+AuthPaper/19M-eps-converted-to.pdf>] [6
 
- <C:/Users/remoorma/Desktop/UserAuthPaper/Optimal-eps-converted-to.pdf> <C:/Use
-rs/remoorma/Desktop/UserAuthPaper/7M-eps-converted-to.pdf> <C:/Users/remoorma/D
-esktop/UserAuthPaper/M1-eps-converted-to.pdf> <C:/Users/remoorma/Desktop/UserAu
-thPaper/19M-eps-converted-to.pdf>] [6 <C:/Users/remoorma/Desktop/UserAuthPaper/
-15-eps-converted-to.pdf> <C:/Users/remoorma/Desktop/UserAuthPaper/25-eps-conver
-ted-to.pdf> <C:/Users/remoorma/Desktop/UserAuthPaper/30-eps-converted-to.pdf> <
-C:/Users/remoorma/Desktop/UserAuthPaper/35-eps-converted-to.pdf>]
+ <C:/Users/remoorma/Desktop/UserAuthPaper/15-eps-converted-to.pdf> <C:/Users/re
+moorma/Desktop/UserAuthPaper/25-eps-converted-to.pdf> <C:/Users/remoorma/Deskto
+p/UserAuthPaper/30-eps-converted-to.pdf> <C:/Users/remoorma/Desktop/UserAuthPap
+er/35-eps-converted-to.pdf>]
 (C:\Users\remoorma\Desktop\UserAuthPaper\UserAuthentication.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6013 strings out of 493921
- 94954 string characters out of 3145670
- 169759 words of memory out of 3000000
- 9153 multiletter control sequences out of 15000+200000
- 39600 words of font info for 80 fonts, out of 3000000 for 9000
+ 6032 strings out of 493921
+ 95255 string characters out of 3145670
+ 171724 words of memory out of 3000000
+ 9171 multiletter control sequences out of 15000+200000
+ 42779 words of font info for 88 fonts, out of 3000000 for 9000
  844 hyphenation exceptions out of 8191
- 42i,19n,75p,1407b,548s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 42i,22n,75p,1407b,553s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Users/remoorma/Desktop/latex/fonts/enc/dvips/fontname/8r.enc}<C:/Users/re
 moorma/Desktop/latex/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/remoor
 ma/Desktop/latex/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/remoorma/De
 sktop/latex/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Users/remoorma/Desktop
 /latex/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/remoorma/Desktop/late
 x/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/remoorma/Desktop/latex/fo
-nts/type1/urw/courier/ucrr8a.pfb><C:/Users/remoorma/Desktop/latex/fonts/type1/u
-rw/times/utmb8a.pfb><C:/Users/remoorma/Desktop/latex/fonts/type1/urw/times/utmb
-i8a.pfb><C:/Users/remoorma/Desktop/latex/fonts/type1/urw/times/utmr8a.pfb><C:/U
-sers/remoorma/Desktop/latex/fonts/type1/urw/times/utmri8a.pfb>
-Output written on UserAuthentication.pdf (6 pages, 405639 bytes).
+nts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/remoorma/Desktop/latex/fonts/t
+ype1/urw/courier/ucrr8a.pfb><C:/Users/remoorma/Desktop/latex/fonts/type1/urw/ti
+mes/utmb8a.pfb><C:/Users/remoorma/Desktop/latex/fonts/type1/urw/times/utmbi8a.p
+fb><C:/Users/remoorma/Desktop/latex/fonts/type1/urw/times/utmr8a.pfb><C:/Users/
+remoorma/Desktop/latex/fonts/type1/urw/times/utmri8a.pfb>
+Output written on UserAuthentication.pdf (6 pages, 414154 bytes).
 PDF statistics:
- 125 PDF objects out of 1000 (max. 8388607)
+ 129 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

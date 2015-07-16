@@ -16,11 +16,27 @@
 \usepackage[justification=centering]{caption}% or e.g. [format=hang]
 
 
+
 \hyphenation{op-tical net-works semi-conduc-tor}    
+
+
+
+\begin{document}
 
 \title{Continuous User Verification\\via Mouse Activities}
 
-\begin{document}
+
+\author{\IEEEauthorblockN{Khandaker Abir Rahman\IEEEauthorrefmark{1},
+Ryan Moormann\IEEEauthorrefmark{2}, Danielle Dierich\IEEEauthorrefmark{3}, and Md. Shafaeat Hossain\IEEEauthorrefmark{4}}
+\IEEEauthorblockA{
+Saginaw Valley State University, Saginaw, Michigan, U.S.\IEEEauthorrefmark{1}\IEEEauthorrefmark{2}\IEEEauthorrefmark{3}\\
+Southern Connecticut State University, New Haven, Connecticut. U.S. \IEEEauthorrefmark{4}\\ 
+Email: \IEEEauthorrefmark{1}krahman@svsu.edu,
+\IEEEauthorrefmark{2}remoorma@svsu.edu,
+\IEEEauthorrefmark{3}dgdieric@svsu.edu,
+\IEEEauthorrefmark{4}hossainm3@southernct.edu.}}
+
+
 \maketitle
 
 
@@ -42,10 +58,18 @@ Continuous Verification.
 
 \section{Introduction \& Background}
 
+With the ever increasing involvement of multimedia and the internet in our lives it is becoming more important than ever to continuously verify who a user actually is. Biometric features provide a unique and convenient way in which to do so. Physiological biometric features are generally more successful beacuse they, unlike behavioral features, do not vary as much as behavioral features. The way someone moves a mouse can be significantly different between sessions. The benefit of authenticating a user based on mouse activities is, unlike many other biometric features, there is no extra equipment needed. Just the mouse that is normally already connected to a computer.
 
 While relatively new, mouse dynamic user authentication does have existing research. The research already done, however, has limitations. The majority of the existing research was done with a relatively small population. Using a small population when conducting research can affect the results of that research. Larger sample sizes allow for more accurate results. Another limitation present in existing research is high false acceptance rates. When testing for authentication, the amount of false acceptances should be as close to 0\% as possible. Having both higher false acceptance rates and false rejection rates leaves room for improvement on the research conducted. Research regarding mouse dynamic user authentication that has seen high success rates is when the authentication is used as a login measure, for example, using the mouse to draw a pattern to log into a machine instead of typing in a password or scanning a fingerprint. There are limitations to this research as well, the biggest being that drawing a pattern with the mouse can easily be reproduced. Also, this form of authentication is performed once and the user is granted access, it does not continuously verify that user.
 
 One significant limitation in existing mouse dynamic user authentication research is the high false acceptance rates and false rejection rates. High FAR and FRR percentages mean that the system has low accuracy when successfully rejecting or accepting a user. We see this occurring with multiple accounts of previous research done in this area \cite{Jor, CS, Sch}. One of these research procedures only took into account mouse curves when authenticating a user \cite{Sch}. This could be the reason they saw such high FAR and FRR rates, successful authentication is more difficult to achieve when only a few characteristics are used to build a user profile. In order to create a more practical and accurate system for mouse dynamic user authentication, FAR and FRR rates need to be significantly lower.
+
+
+\begin{figure}[t!]
+  \includegraphics[width=1\linewidth]{Overview.pdf}
+\caption{An overview of continuous verification with mouse movements. In the training phase a user creates a profile based on their mouse movements (The average and standard deviation of each mouse feature). The profile is used to represent a user in the verification phase where features from live mouse movements can be verified against the profile in order to determine if the live mouse movements came from the user who created the profile. If the verifier determines that the live mouse movements are illegitimate an action can be taken. ( e.g. logging the user out, creating a log of the incident, etc.)}
+\end{figure}
+
 
 There has been some previous research done with very promising results. However, while this research saw false acceptance rates at only .43\% and false rejection rates at 1.75\%, the population size used was very low, they only used 11 subjects when conducting their research. While the results they achieved are more successful than the majority of other research done in this area, their low subject count raises questions about how reliable their system really is. When using a broader subject count, there is a possibility that these low FAR and FRR percentages would no longer be as low as originally recorded. It is hard to tell reliability when such a small population is being used. \cite{Pus} One study that saw very low FAR and FRR rates at 0.55\% and 3\% respectively, only used 10 subjects to calculate these results. These subjects were also studied over a long period time, making the system much more accurate. This method would be difficult to implement on a larger group of people to get results that accurate \cite{She}. Another instance where this research saw low FAR and FRR rates (just over 2\%) also had a relatively low subject count. This research used a slightly larger number of subjects, 22, but even that number is still relatively low to see accurate results for large populations of people. \cite{Ahmed}
 
@@ -58,11 +82,6 @@ One method of mouse authentication that has seen very promising and positive res
 Our research on mouse dynamic user authentication addresses the limitations talked about. We have used a larger population base to take our samples from to increase our accuracy. We are also working to achieve low false acceptance and false rejection rates. With our research, we have taken a larger variety of mouse characteristics into consideration when measuring the uniqueness of a user’s mouse characteristics. Using a larger amount of mouse characteristics can build a more complete and specific profile for each user. With more detailed user profiles, there is less likelihood for another user to create similar results and ultimately a false acceptance as another user. More detailed profiles also capture a more accurate representation of a user, which can also lower the amount of false rejection rates.
 
 
-\begin{figure}[h!]
-  \includegraphics[width=1\linewidth]{Overview.pdf}
-\caption{An overview of continuous verification with mouse movements. In the training phase a user creates a profile based on their mouse movements (The average and standard deviation of each mouse feature). The profile is used to represent a user in the verification phase where features from live mouse movements can be verified against the profile in order to determine if the live mouse movements came from the user who created the profile. If the verifier determines that the live mouse movements are illegitimate an action can be taken. ( e.g. logging the user out, creating a log of the incident, etc.)}
-\end{figure}
-
 
 \section{Data Collection}
 We wanted our data set to include movements that were natural to best simulate day to day actions a user would perform on the computer. This is to have a more relevant set of data that our authentication method would see in a more practical environment. To do this, we asked a class of students to record their mouse movements. The students were instructed to perform any activity on the computer they normally would for an hour period.
@@ -71,6 +90,7 @@ We then screened the samples and removed samples with very few (0 to 10) movemen
 
 
 \bgroup
+\captionof{table}{Overview of the samples collected}
 \def\arraystretch{1.5}
 \addvbuffer[12pt 8pt]{\begin{tabular}{l*{6}{c}r}
 \textbf{Type}              &\textbf{ Maximum} & \textbf{Minimum} & \textbf{Average} \\
@@ -81,7 +101,7 @@ Double Clicks	& 1282 & 1 & 181.64 \\
 
 \end{tabular}}
 \egroup
-\captionof{table}{Overview of the samples collected}
+
 
 
 \section{Feature Extraction}
@@ -90,8 +110,10 @@ Double Clicks	& 1282 & 1 & 181.64 \\
 	If the cursor sustains no action (movement or clicks) for a period of 500ms or longer we classify that period and any preceding cursor movement as a pause. This allows for periods where a user is not concentrating on moving the mouse with intent while not having it effect periods where a user is moving the mouse with intent. We do not use pauses for classification in our method. If a mouse movement ends in a pause instead of a click we define that as a partial mouse movement. We don not consider these partial movements in our classifier because their occurences in the samples are too sparse. While they may hold unique identifying information about a user its more difficult to tell if the partial mouse movement came from purposeful movement (i.e. shaking the mouse to wake up the screen) or accidental movement (i.e. knocking into the mouse with your elbow.)
 
 \bgroup
+
 \def\arraystretch{1.5}
 \begin{table*}
+\caption{Descriptions of the Features Used\label{tbl:definitions}}
 \begin{tabular}{m{.25\textwidth} | m{.75\textwidth}  }
  \textbf{ Feature}	&	\textbf{Description}\\
  \hline
@@ -113,7 +135,6 @@ Acceleration			&	Change in Speed over time\\
 Jerk				&	Change in Acceleration over time\\
 
 \end{tabular}
-\caption{Descriptions of the features used\label{tbl:definitions}}
 \end{table*}
 \egroup
 
@@ -124,7 +145,7 @@ Jerk				&	Change in Acceleration over time\\
 
 
 \subsection{Outlier Filtering}
-For our setup we first went through each of the user samples and extracted each of the features, as defined above, from each mouse movement. To remove rare cases of mouse movements where the user provides a mouse movement far from the mean we implemented an outlier removal scheme. We define a mouse feature to be an outlier if it is more eccentric than 66\% of the population of the same mouse features for a single user. For example, if we are looking to find if a particular mouse feature $M$ is an outlier:
+For our setup we first went through each of the user samples and extracted each of the features, as defined above, from each mouse movement. To remove rare cases of mouse movements where the user provides a mouse movement far from the mean we implemented an outlier removal scheme. We define a mouse feature to be an outlier if it is more eccentric than 66\% of the population of the same mouse features for a single user.
 
 \begin{algorithm}
 
@@ -151,7 +172,7 @@ For our setup we first went through each of the user samples and extracted each 
 \end{algorithm}
 
 We defined the variable $R$, for each mouse feature, a number large enough to include most of the population while small enough to remove the noise from the data. We found optimal values for our $R$ values after extensive experimentation we will describe later on.\\
-We created a simple algorithm for determining if a particular record of a mouse feature is an outlier outlined in Algorithm \ref{alg:algorithm1}. For a given set of mouse features from a training sample (the featurePopulation), we compared each feature in the featurePopulation against every other feature of the same type, i.e. a Single Left Click Length feature is only compared to every other Single Left Click Length feature. Then a simple tally is kept of how many of the features in the featurePopulation have a distance greater than $R$ as shown on line 4 \& 5 of Algorithm \ref{alg:algorithm1}. On line 6 we simple restate that if the if the tally is greater than 33\% of the featurePopulation we claim the feature F is an outlier and discard it from the training set.
+We created a simple algorithm for determining if a particular record of a mouse feature is an outlier outlined in Algorithm \ref{alg:algorithm1}. For a given set of mouse features from a training sample (the $featurePopulation$), we compared each feature in the $featurePopulation$ against every other feature of the same type, i.e. a Single Left Click Length feature is only compared to every other Single Left Click Length feature. Then a simple tally is kept of how many of the features in the $featurePopulation$ have a distance greater than $R$ as shown on line 4 \& 5 of Algorithm \ref{alg:algorithm1}. On line 6 we simple restate that if the if the tally is greater than 33\% of the featurePopulation we claim the feature F is an outlier and discard it from the training set.
 
 
 \begin{figure}[t]
@@ -162,36 +183,53 @@ We created a simple algorithm for determining if a particular record of a mouse 
 \subsection{Verification}
 	To authenticate a user based on their mouse movements we analyze six mouse features over the course of a sample. Our method is a simplistic user-authentication model. We create a profile based on a user's past behavior then test further samples against that profile to determine if the sample we test with is close enough to the previous profile to be considered the same user.  
 We then split the edited list of features into a testing set and a training set. For each file we create user profiles based on half of the user's sample (about 50 mouse movements on average for our samples). The profiles being simply the averages and standard deviations of each of the mouse features. The mouse movements from the sample that we did not use for the profile go into the user's testing set.
-Using a simple classification scoring method we can see how well a user profile and a testing set of data match up. For our entire set of data we took every user profile and tested each against every testing set. Our custom testing method generated a score for each test between 0 and 1 based on a simple scoring formula \( score = \frac{Number Of Accepted Features}{Total Number Of Features} \). 1 being a perfect match and 0 being a perfect mismatch. It should be noted we accept a particular feature if \(Average_{Training} - $M$ * STD_{Training} \leq featureValue \leq Average_{Training} + $M$ * STD_{Training} \).
+Using a simple classification scoring method we can see how well a user profile and a testing set of data match up. For our entire set of data we took every user profile and tested each against every testing set. Our custom testing method generated a score for each test between 0 and 1 based on a simple scoring formula 
+\begin{equation} 
+score = \frac{\text{Number Of Accepted Features}}{\text{Total Number Of Features}}
+\end{equation}
+
+1 being a perfect match and 0 being a perfect mismatch. It should be noted we accept a particular feature if
+
+\begin{equation}
+\begin{split}
+\begin{gathered}
+   lowerBound \leq featureValue \leq upperBound, \text{where},\\
+   lowerBound = AVG_{Train} - M * STD_{Train}\\
+   upperBound = AVG_{Train} + M * STD_{Train}
+\end{gathered}
+\end{split}
+\end{equation}
+
+
 We tested by comparing each of the mouse movements in a testing set against the users profile. If the features in the mouse movement are within $M$ standard deviations of the corresponding means in the user profile then the test gets a point. The total amount of points accrued is divided by the total amount of mouse movements in the file to generate the score.
 	
 
 
 \section{Experimental Setup}
-We had a few parameters where it wasn’t immediately apparent how to set. For the $R$ variables we needed values that can discriminate mouse feature values that are too eccentric while keeping as much unique data as possible. To solve this we ran a script that ran the tests and found the EER over an array of values for each parameter to determine the optimal values where the EER is at its lowest. We found that an $M$ value of 1.9, a Single Click $R$ of 15, and a Double Click $R$ of 175 to produce the lowest EER for our set of data.
+We had a few parameters where it wasn’t immediately apparent how to set. For the $R$ variables we needed values that can discriminate mouse feature values that are too eccentric while keeping as much unique data as possible. To solve this we ran a script that ran the tests and found the EER over an array of values for each parameter to determine the optimal values where the EER is at its lowest. We found that an $M$ value of 1.9, a Single Click $R$ of 15, and a Double Click $R$ of 175 to produce the lowest EER for our set of data. By varying the parameter value we experimented with 175 (5 Single Click $R$ $\cdot$ 5 Double Click $R$ $\cdot$ 7 $M$ Values) different experimental set-ups. Note that we do not use any $R$ parameter for the other features since they show less variance. In total, we experimented with 354,357 verification attempts (45 users $\cdot$ 45 users $\cdot$ 175 experimental set-ups).
 
 \bgroup
+\captionof{table}{The values used for our parameters for testing. }
 \def\arraystretch{1.5}
 \addvbuffer[12pt 8pt]{\begin{tabular}{ l| l}
 \textbf{Parameter}              &\textbf{Values Tested} \\
 \hline
-Single Click $R$ Value		& 15 20 25 30 25  \\
-Double Click $R$ Value	& 175 180 185 190 195\\
-M Value		& 0.7 1 1.3 1.6 1.9 2.2 2.3\\
+Single click $R$ value		& 15 20 25 30 25  \\
+Double click $R$ value	& 175 180 185 190 195\\
+M value		& 0.7 1 1.3 1.6 1.9 2.2 2.3\\
 \end{tabular}}
 \egroup
-\captionof{table}{The values used for our parameters for testing. By varying the parameter value we experimented with 175 (5 Single Click $R$ x 5 Double Click $R$ x 7 $M$ Values) different experimental set-ups. Note that we do not use any $R$ parameter for the other features since they show less variance. In total, we experimented with 354,357 verification attempts (45 users x 45 users x 175 experimental set-ups).}
-
 
 
 \section{Experimental Results \& Analysis}
-To calculate the results of our experiment we took each users profile and tested that against every other set of testing data. This values in this generated confusion matrix are then used to calculate the false rejection rate and false acceptance rate. After finding the best settings for our parameters we obtained 6.7\% equal error rate. 
+To calculate the results of our experiment we took each users profile and tested that against every other set of testing data. These values in this generated confusion matrix are then used to calculate the false rejection rate and false acceptance rate. After finding the best settings for our parameters we obtained 6.7\% equal error rate. 
 
 \bgroup
+\captionof{table}{The EER rates found across multiple parameter values. Each column is a separate double click $R$ value while each row is a separate $M$ value. The entire table is tested against one single click $R$ value set to 20ms.}
 \def\arraystretch{1.5}
 \addvbuffer[12pt 8pt]{\begin{tabular}{ c  l | l l l l l }
 
-         \multirow{11}{*}{\begin{sideways} \textbf{ $M$ values}\end{sideways}} & \multicolumn{6}{c}{\textbf{$R$ values}} \\
+         \multirow{11}{*}{\begin{sideways} \textbf{ $M$ values}\end{sideways}} & \multicolumn{6}{c}{\textbf{Double click $R$ values}} \\
 
 
        && \textbf{175}  &  \textbf{180}  &  \textbf{185}  &  \textbf{190}  &  \textbf{195} \\
@@ -206,10 +244,10 @@ To calculate the results of our experiment we took each users profile and tested
   & \textbf{2.5}	&7.71\%	&8.00\%	&8.00\%	&7.89\%	&7.50\%\\
 \end{tabular}}
 \egroup
-\captionof{table}{The EER rates found across multiple parameter values. Each column is a separate double click $R$ value while each row is a separate $M$ value. The entire table is tested against one single click $R$ value set to 20ms.}
 
 
-\begin{figure*}[t!]
+
+\begin{figure}[p]
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{Optimal}
@@ -236,9 +274,9 @@ To calculate the results of our experiment we took each users profile and tested
 \end{subfigure}
 \caption{Plots of the False Rejection Rate and the False Acceptance Rate for four different parameter settings. The point at which the FRR and FAR intersect is the Equal Error Rate. }
 \label{fig:fig}
-\end{figure*}
+\end{figure}
 
-\begin{figure*}[b!]
+\begin{figure}[p]
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{15.eps}
@@ -266,16 +304,12 @@ To calculate the results of our experiment we took each users profile and tested
 \end{subfigure}
 \caption{Scatter plots of EER over the ranges of the parameter values we chose. The X-axis is Double Click R-Values, the Y-axis is the EER. Each plot is a separate Single Click $R$ value. \\Global Max = 30.02\% Global Min = 6.72\% Global Average = 13.19\% Global STD = 5.77\%}
 \label{fig:fig}
-\end{figure*}
+\end{figure}
 
 
 \section{Conclusion}
 
 Our comprehensive experiment which comprises X thousands verification attempts carried over 45 users, shows the effectiveness of our method. On average, the EER we found was 13.42\%. The lowest EER was found to be 6.72\%. In future, we want to test our method on more user samples. To improve accuracy even further, we want to set the parameter values ($R$ and $M$) for each users separately instead of adopting generic values. We believe that, a simple system with impressive accuracy such as ours, can easily be considered for continuously verify system users in real time.    
-
-\section*{Acknowledgment}
-We acknowledge the acknowledged acknowledgees.
-
 
 \begin{thebibliography}{100} % 100 is a random guess of the total number of
 %references
