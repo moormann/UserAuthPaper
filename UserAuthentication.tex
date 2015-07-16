@@ -96,31 +96,28 @@ We organized the paper as follows. In Section II we discuss data collection. In 
 
 
 \section{Data Collection}
-We wanted our data set to include movements that were natural to best simulate day to day actions a user would perform on the computer. This is to have a more relevant set of data that our authentication method would see in a more practical environment. To do this, we asked a class of students to record their mouse movements. The students were instructed to perform any activity on the computer they normally would for an hour period.
+We wanted our data set to include movements that were natural to best simulate the day to day actions a user would perform on the computer in a real situation. This is to have a more relevant set of data that our authentication method would see in a more practical environment. To do this, we asked a class of students to record their mouse movements. The students were instructed to perform any activity on the computer they normally would for an hour period.
 	In order to log the mouse activity of users we created a simple mouse logger.  The logger was a small piece of software that ran on the windows operating system. The logger, when run on a machine, logged the position of the cursor using the windows method GetCursorPos(), the state of the left and right mouse buttons (up or down), and a timestamp every 15.6ms. 15.6ms being the average default timer resolution that windows supports. The resulting log was then placed into a text file. 
-We then screened the samples and removed samples with very few (0 to 10) movements and samples that weren't an hour long. Post-screening we had 45 valid user samples. Around 76,500 mouse activities have been processed for our experiments. Our samples consisted of university students collected from late November 2014 to early December 2014. Table I shows some statistics of collected samples.
+We then screened the samples and removed samples with very few (0 to 10) movements and samples that weren't an hour long. Post-screening we had 45 valid user samples. Around 76,500 mouse activities have been processed for our experiments. Our samples consisted of university students mouse activities collected from late November 2014 to early December 2014. Table \ref{tbl:samples} shows some statistics of collected samples.
 
-
-
-\bgroup
+\begin{table}
+\centering
 \captionof{table}{Overview of the samples collected}
+\label{tbl:samples}
 \def\arraystretch{1.5}
-\addvbuffer[12pt 8pt]{\begin{tabular}{l*{6}{c}r}
-\textbf{Activity}              &\textbf{ Maximum} & \textbf{Minimum} & \textbf{Average} \\
+\begin{tabular}{l c c c}
+\textbf{Activity} &\textbf{Maximum} & \textbf{Minimum} & \textbf{Average} \\
 \hline
 Left Clicks	& 716 & 37 & 547.84 \\
 Right Clicks	& 690 & 0 & 122.8 \\
 Double Clicks	& 1282 & 1 & 181.64 \\
-
-\end{tabular}}
-\egroup
-
-
+\end{tabular}
+\end{table}
 
 \section{Feature Extraction}
-    In order to classify a test sample we needed some way to compare test samples and training samples. To do this we used features that are found in our definition of a mouse movement. The features, defined in Table \ref{tbl:definitions} and visualized in Figure \ref{fig:visualdefinition}, were found to be unique among users. In total we had 6 features and 3 sub-features. The double click length feature is interesting in that it contains 3 sub features allowing each sample to have a unique double click feature even if the entire length of the double clicks happen to be the same among users.\\
+    In order to classify a test sample we needed some way to compare test samples and training samples. To do this we used features that are found in our definition of a mouse movement. The features, defined in Table \ref{tbl:definitions} and visualized in Figure \ref{fig:visualdefinition}, were found to be unique among users. In total we had 6 features and 3 sub-features. The double click length feature is interesting in that it contains 3 sub features allowing each sample to provide a unique set of features even if the entire length of the double clicks happen to be the same between the testing and training sets.\\
 	We defined a mouse movement as a period of cursor movement followed by a click. This isn't to say that a click without any prior movement is not considered a mouse movement. It would be a mouse movement with zero speed, acceleration, and jerk. \\
-	If the cursor sustains no action (movement or clicks) for a period of 500ms or longer we classify that period and any preceding cursor movement as a pause. This allows for periods where a user is not concentrating on moving the mouse with intent while not having it effect periods where a user is moving the mouse with intent. We do not use pauses for classification in our method. If a mouse movement ends in a pause instead of a click we define that as a partial mouse movement. We don not consider these partial movements in our classifier because their occurences in the samples are too sparse. While they may hold unique identifying information about a user its more difficult to tell if the partial mouse movement came from purposeful movement (i.e. shaking the mouse to wake up the screen) or accidental movement (i.e. knocking into the mouse with your elbow.)
+	If the cursor sustains no action (movement or clicks) for a period of 500ms or longer we classify that period and any preceding cursor movement as a pause. This allows for periods where a user is not concentrating on moving the mouse with intent while not having it effect periods where a user is moving the mouse with intent. We do not use pauses for classification in our method. If a mouse movement ends in a pause instead of a click we could define that as a partial mouse movement. Research has gone into studying these partial movements. However, we do not consider these partial movements in our classifier because their occurences, while abundant, degrade the accuracy of the final result \cite{Zhe}. While they may hold unique identifying information about a user its more difficult to tell if the partial mouse movement came from purposeful movement (i.e. shaking the mouse to wake up the screen) or accidental movement (i.e. knocking into the mouse with your elbow.)
 
 \bgroup
 
@@ -152,44 +149,6 @@ Jerk				&	Change in Acceleration over time\\
 \egroup
 
 
-
-
-\section{Methodology}
-
-
-\subsection{Outlier Filtering}
-
-For our setup we first went through each of the user samples and extracted each of the features, as defined above, from each mouse movement. To remove rare cases of mouse movements where the user provides a mouse movement far from the normal, we implemented an outlier removal scheme. We define a mouse feature to be an outlier if it is more eccentric than 66\% of the population of the same mouse features for a single user. For example, if we are looking to find if a particular mouse feature $M$ is an outlier:
-
-
-\begin{algorithm}
-
-\caption{Determines if a single feature $F$ is an outlier from the rest of the population of its own kind. $featurePopulation$ is an array of same-typed features from a testing sample that $F$ is also a member of.}\label{euclid}
-\begin{algorithmic}[1]
-\Procedure{IsAnOutlier}{$F$}
-\State $\textit{count} \gets 0$
-	\For{\textbf{each} $feature \textrm{ in } featurePopulation$}
-			\If{$ |F - feature| > R$}
-				\State $count \gets count + 1$
-			\EndIf
-	\EndFor
-	\If{$count \div featurePopulation_{size} \ge .33$}
-
-		\State \Return{\texttt{True}}
-	\Else
-		\State \Return{\texttt{False}} 
-
-	\EndIf
-\EndProcedure
-\end{algorithmic}
-\label{alg:algorithm1}
-
-\end{algorithm}
-
-We defined the variable $R$, for each mouse feature, a number large enough to include most of the population while small enough to remove the noise from the data. We found optimal values for our $R$ values after extensive experimentation we will describe later on.\\
-We created a simple algorithm for determining if a particular record of a mouse feature is an outlier outlined in Algorithm \ref{alg:algorithm1}. For a given set of mouse features from a training sample (the $featurePopulation$), we compared each feature in the $featurePopulation$ against every other feature of the same type, i.e. a Single Left Click Length feature is only compared to every other Single Left Click Length feature. Then a simple tally is kept of how many of the features in the $featurePopulation$ have a distance greater than $R$ as shown on line 4 \& 5 of Algorithm \ref{alg:algorithm1}. On line 6 we simple restate that if the if the tally is greater than 33\% of the featurePopulation we claim the feature F is an outlier and discard it from the training set.
-
-
 \begin{figure*}
 \begin{subfigure}{.5\textwidth}
   \centering
@@ -219,34 +178,42 @@ We created a simple algorithm for determining if a particular record of a mouse 
 \label{fig:fig}
 \end{figure*}
 
-\begin{figure}
-  \includegraphics[width=1\linewidth]{clickDiag}
-  \caption{A visual representation of the click features. Dashes representing no button activity, dots representing periods where the mouse button is down, and vertical bars representing the first record that the mouse button has changed state.  \label{fig:visualdefinition}}
-\end{figure}
-
-\subsection{Verification}
-	To authenticate a user based on their mouse movements we analyze six mouse features over the course of a sample. Our method is a simplistic user-authentication model. We create a profile based on a user's past behavior then test further samples against that profile to determine if the sample we test with is close enough to the previous profile to be considered the same user.  
-We then split the edited list of features into a testing set and a training set. For each file we create user profiles based on half of the user's sample (about 50 mouse movements on average for our samples). The profiles being simply the averages and standard deviations of each of the mouse features. The mouse movements from the sample that we did not use for the profile go into the user's testing set.
-Using a simple classification scoring method we can see how well a user profile and a testing set of data match up. For our entire set of data we took every user profile and tested each against every testing set. Our custom testing method generated a score for each test between 0 and 1 based on a simple scoring formula 
-\begin{equation} 
-score = \frac{\text{Number Of Accepted Features}}{\text{Total Number Of Features}}
-\end{equation}
-
-1 being a perfect match and 0 being a perfect mismatch. It should be noted we accept a particular feature if
-
-\begin{equation}
-\begin{split}
-\begin{gathered}
-   lowerBound \leq featureValue \leq upperBound, \text{where},\\
-   lowerBound = AVG_{Train} - M * STD_{Train}\\
-   upperBound = AVG_{Train} + M * STD_{Train}
-\end{gathered}
-\end{split}
-\end{equation}
 
 
-We tested by comparing each of the mouse movements in a testing set against the users profile. If the features in the mouse movement are within $M$ standard deviations of the corresponding means in the user profile then the test gets a point. The total amount of points accrued is divided by the total amount of mouse movements in the file to generate the score.
-	
+\section{Methodology}
+
+
+\subsection{Outlier Filtering}
+
+For our setup we first went through each of the user samples and extracted each of the features from each mouse movement. To remove rare cases of features far from the normal, we implemented an outlier removal scheme. We define a mouse feature to be an outlier if it is more eccentric than 66\% of the population of the same mouse features for a single user. For example, if we are looking to find if a particular mouse feature $F$ is an outlier we use the algorithm described in Algorithm \ref{alg:algorithm1} 
+
+
+\begin{algorithm}
+
+\caption{Determines if a single feature $F$ is an outlier from the rest of the population of its own kind. $featurePopulation$ is an array of same-typed features from a testing sample that $F$ is also a member of.}\label{euclid}
+\begin{algorithmic}[1]
+\Procedure{IsAnOutlier}{$F$}
+\State $\textit{count} \gets 0$
+	\For{\textbf{each} $feature \textrm{ in } featurePopulation$}
+			\If{$ |F - feature| > R$}
+				\State $count \gets count + 1$
+			\EndIf
+	\EndFor
+	\If{$count \div featurePopulation_{size} \ge .33$}
+
+		\State \Return{\texttt{True}}
+	\Else
+		\State \Return{\texttt{False}} 
+
+	\EndIf
+\EndProcedure
+\end{algorithmic}
+\label{alg:algorithm1}
+
+\end{algorithm}
+
+We defined a variable $R$, for each mouse feature, a number large enough to include most of the population while small enough to remove the noise from the data. We found optimal values for our $R$ values after extensive experimentation we will describe later on.\\
+We created a simple algorithm for determining if a particular record of a mouse feature is an outlier outlined in Algorithm \ref{alg:algorithm1}. For a given set of mouse features from a training sample (the $featurePopulation$), we compared each feature in the $featurePopulation$ against every other feature of the same type, i.e. a Single Left Click Length feature is only compared to every other Single Left Click Length feature. Then a simple tally is kept of how many of the features in the $featurePopulation$ have a distance greater than $R$ as shown on line 4 \& 5 of Algorithm \ref{alg:algorithm1}. On line 6 we simple restate that if the if the tally is greater than 33\% of the featurePopulation we claim the feature F is an outlier and discard it from the training set.
 
 
 
@@ -281,8 +248,40 @@ We tested by comparing each of the mouse movements in a testing set against the 
 \end{figure*}
 
 
+\begin{figure}
+  \includegraphics[width=1\linewidth]{clickDiag}
+  \caption{A visual representation of the click features. Dashes representing no button activity, dots representing periods where the mouse button is down, and vertical bars representing the first record that the mouse button has changed state.  \label{fig:visualdefinition}}
+\end{figure}
+
+\subsection{Verification}
+	To authenticate a user based on their mouse movements we analyze six mouse features over the course of a sample. Our method is a simplistic user-authentication model. We create a profile based on a user's past behavior then test further samples against that profile to determine if the sample we test with is close enough to the previous profile to be considered the same user.  
+We then split the edited list of features into a testing set and a training set. For each file we create user profiles based on half of the user's sample (about 50 mouse movements on average for our samples). The profiles being simply the averages and standard deviations of each of the mouse features. The mouse movements from the sample that we did not use for the profile go into the user's testing set.
+Using a simple classification scoring method we can see how well a user profile and a testing set of data match up. For our entire set of data we took every user profile and tested each against every testing set. Our custom testing method generated a score for each test between 0 and 1 based on a simple scoring formula 
+\begin{equation} 
+score = \frac{\text{Number Of Accepted Features}}{\text{Total Number Of Features}}
+\end{equation}
+
+1 being a perfect match and 0 being a perfect mismatch. It should be noted we accept a particular feature if
+
+\begin{equation}
+\begin{split}
+\begin{gathered}
+   lowerBound \leq featureValue \leq upperBound, \text{where},\\
+   lowerBound = AVG_{Train} - M * STD_{Train}\\
+   upperBound = AVG_{Train} + M * STD_{Train}
+\end{gathered}
+\end{split}
+\end{equation}
+
+
+We tested by comparing each of the mouse movements in a testing set against the users profile. If the features in the mouse movement are within $M$ standard deviations of the corresponding means in the user profile then the test gets a point. The total amount of points accrued is divided by the total amount of mouse movements in the file to generate the score.
+	
+
+
+
+
 \section{Experimental Setup}
-We had a few parameters where it wasn’t immediately apparent how to set. For the $R$ variables we needed values that can discriminate mouse feature values that are too eccentric while keeping as much unique data as possible. To solve this we ran a script that ran the tests and found the EER over an array of values for each parameter to determine the optimal values where the EER is at its lowest. We found that an $M$ value of 1.9, a Single Click $R$ of 15, and a Double Click $R$ of 175 to produce the lowest EER for our set of data. By varying the parameter value we experimented with 175 (5 Single Click $R$ $\cdot$ 5 Double Click $R$ $\cdot$ 7 $M$ Values) different experimental set-ups. Note that we do not use any $R$ parameter for the other features since they show less variance. In total, we experimented with 354,357 verification attempts (45 users $\cdot$ 45 users $\cdot$ 175 experimental set-ups).
+We had a few parameters where it wasn’t immediately apparent what we should set them as. For the $R$ variables we needed values that can discriminate mouse feature values that are too eccentric while keeping as much unique data as possible. To solve this we wrote a script that ran the feature extraction and verification programs and found the EER over an array of values for each parameter to determine the optimal values for those parameters where the EER is at its lowest. We found that an $M$ value of 1.9, a Single Click $R$ of 20ms, and a Double Click $R$ of 185ms to produce the lowest EER for our set of data. By varying the parameter value we experimented with 175 (5 Single Click $R$ $\cdot$ 5 Double Click $R$ $\cdot$ 7 $M$ Values) different experimental set-ups. Note that we do not use any $R$ parameter for the other features since they show less variance. In total, we experimented with 354,357 verification attempts (45 users $\cdot$ 45 users $\cdot$ 175 experimental set-ups).
 
 \bgroup
 \captionof{table}{The values used for our parameters for testing. }
@@ -311,10 +310,11 @@ To calculate the results of our experiment we took each users profile and tested
 \end{description} 
 
 
-\bgroup
+\begin{table}[t]
 \captionof{table}{The EER rates found across multiple parameter values. Each column is a separate double click $R$ value while each row is a separate $M$ value. The entire table is tested against one single click $R$ value set to 20ms.}
 \def\arraystretch{1.5}
 \addvbuffer[12pt 8pt]{\begin{tabular}{ c  l | l l l l l }
+
 
          \multirow{11}{*}{\begin{sideways} \textbf{ $M$ values}\end{sideways}} & \multicolumn{6}{c}{\textbf{Double click $R$ values}} \\
 
@@ -330,7 +330,7 @@ To calculate the results of our experiment we took each users profile and tested
    &\textbf{2.2}	&13.36\%	&6.77\%	&6.70\%	&6.72\%	&6.88\%\\
   & \textbf{2.5}	&7.71\%	&8.00\%	&8.00\%	&7.89\%	&7.50\%\\
 \end{tabular}}
-\egroup
+\end{table}
 
 
 
@@ -346,13 +346,14 @@ Our comprehensive experiment which comprises X thousands verification attempts c
 \bibitem{CS} Chao Shen, Zhongmin Cai, Xiaohong Guan, Youtian Du and R. Maxion, 'User Authentication Through Mouse Dynamics', IEEE Trans.Inform.Forensic Secur., vol. 8, no. 1, pp. 16-30, 2013.
 \bibitem{Jor} Z. Jorgensen and T. Yu, 'On mouse dynamics as a behavioral biometric for authentication', Proceedings of the 6th ACM Symposium on Information, Computer and Communications Security - ASIACCS '11, pp. 476-482, 2011.
 \bibitem{Sch}D. Schulz, 'Mouse Curve Biometrics', 2006 Biometrics Symposium: Special Session on Research at the Biometric Consortium Conference, 2006.
-\bibitem{HJ} H. Jahankhani, D. Palmer-Brown and K. Revett, 'A Survey of User Authentication Based on Mouse Dynamics', Global E-Security. Berlin, Heidelberg: Springer-Verlag Berlin Heidelberg, 2008, pp. 210-219.
-\bibitem{Ahmed} A. Ahmed and I. Traore, 'A New Biometric Technology Based on Mouse Dynamics', IEEE Trans. Dependable and Secure Comput., vol. 4, no. 3, pp. 165-179, 2007.
-\bibitem{Nak}Y. Nakkabi, I. Traore and A. Ahmed, 'Improving Mouse Dynamics Biometric Performance Using Variance Reduction via Extractors With Separate Features', IEEE Trans. Syst., Man, Cybern. A, vol. 40, no. 6, pp. 1345-1353, 2010.
 \bibitem{Pus}M. Pusara and C. Brodley, 'User re-authentication via mouse movements', Proceedings of the 2004 ACM workshop on Visualization and data mining for computer security - VizSEC/DMSEC '04, 2004.
 \bibitem{She}C. Shen, Z. Cai, X. Guan, H. Sha and J. Du, 'Feature Analysis of Mouse Dynamics in Identity Authentication and Monitoring', 2009 IEEE International Conference on Communications, 2009.
-\bibitem{Syu}A. Syukri, E. Okamoto and M. Mambo, 'A user identification system using signature written with mouse', Information Security and Privacy, pp. 403-414, 1998.
+\bibitem{Ahmed} A. Ahmed and I. Traore, 'A New Biometric Technology Based on Mouse Dynamics', IEEE Trans. Dependable and Secure Comput., vol. 4, no. 3, pp. 165-179, 2007.
 \bibitem{Zhe}N. Zheng, A. Paloski and H. Wang, 'An efficient user verification system via mouse movements', Proceedings of the 18th ACM conference on Computer and communications security - CCS '11, pp. 139-150, 2011.
+\bibitem{Nak}Y. Nakkabi, I. Traore and A. Ahmed, 'Improving Mouse Dynamics Biometric Performance Using Variance Reduction via Extractors With Separate Features', IEEE Trans. Syst., Man, Cybern. A, vol. 40, no. 6, pp. 1345-1353, 2010.
+\bibitem{HJ} H. Jahankhani, D. Palmer-Brown and K. Revett, 'A Survey of User Authentication Based on Mouse Dynamics', Global E-Security. Berlin, Heidelberg: Springer-Verlag Berlin Heidelberg, 2008, pp. 210-219.
+\bibitem{Syu}A. Syukri, E. Okamoto and M. Mambo, 'A user identification system using signature written with mouse', Information Security and Privacy, pp. 403-414, 1998.
+
 
 \end{thebibliography}
 
