@@ -67,7 +67,7 @@ Our research on mouse dynamic user authentication addresses the limitations talk
 \section{Data Collection}
 We wanted our data set to include movements that were natural to best simulate day to day actions a user would perform on the computer. This is to have a more relevant set of data that our authentication method would see in a more practical environment. To do this, we asked a class of students to record their mouse movements. The students were instructed to perform any activity on the computer they normally would for an hour period.
 	In order to log the mouse activity of users we created a simple mouse logger.  The logger was a small piece of software that ran on the windows operating system. The logger, when run on a machine, logged the position of the cursor using the windows method GetCursorPos(), the state of the left and right mouse buttons (up or down), and a timestamp every 15.6ms. 15.6ms being the average default timer resolution that windows supports. The resulting log was then placed into a text file. 
-We then screened the samples and removed samples with very few (0 to 10) movements and samples that weren't an hour long. Post-screening we had 25 valid user samples.  Our samples consisted of university students and their friends and family collected from late November to early December 2014.
+We then screened the samples and removed samples with very few (0 to 10) movements and samples that weren't an hour long. Post-screening we had 25 valid user samples.  Our samples consisted of university students and their friends and family collected from late November 2014 to early December 2014.
 
 
 \bgroup
@@ -85,9 +85,9 @@ Double Clicks	& 1282 & 1 & 181.64 \\
 
 
 \section{Feature Extraction}
-    In order to classify a test sample we needed some way to compare test samples and training samples. To do this we used features that are found in our definition of a mouse movement. The features, defined in Table \ref{tbl:definitions} and visualized in Figure \ref{fig:visualdefinition}, were found to be unique between users. In total we had 6 features and 3 sub-features. The double click length feature is interesting in that it contains 3 sub features allowing each sample to have a unique double click feature even if the entire length of the double clicks happen to be the same.\\
-	We defined a mouse movement as a period of cursor movement followed by a click. This isn't to say that a click without any movement prior is not considered a mouse movement. It would be a mouse movement with no speed, acceleration, or jerk. \\
-	If the cursor sustains no action for a period of 500ms or longer we classify that period and any preceding cursor movement as a pause. This allows for periods where a user is not concentrating on moving the mouse with intent while not having it effect periods where a user is moving th emouse with intent. We do not use pauses for classification in our method.
+    In order to classify a test sample we needed some way to compare test samples and training samples. To do this we used features that are found in our definition of a mouse movement. The features, defined in Table \ref{tbl:definitions} and visualized in Figure \ref{fig:visualdefinition}, were found to be unique among users. In total we had 6 features and 3 sub-features. The double click length feature is interesting in that it contains 3 sub features allowing each sample to have a unique double click feature even if the entire length of the double clicks happen to be the same among users.\\
+	We defined a mouse movement as a period of cursor movement followed by a click. This isn't to say that a click without any prior movement is not considered a mouse movement. It would be a mouse movement with zero speed, acceleration, and jerk. \\
+	If the cursor sustains no action (movement or clicks) for a period of 500ms or longer we classify that period and any preceding cursor movement as a pause. This allows for periods where a user is not concentrating on moving the mouse with intent while not having it effect periods where a user is moving the mouse with intent. We do not use pauses for classification in our method. If a mouse movement ends in a pause instead of a click we define that as a partial mouse movement. We don not consider these partial movements in our classifier because their occurences in the samples are too sparse. While they may hold unique identifying information about a user its more difficult to tell if the partial mouse movement came from purposeful movement (i.e. shaking the mouse to wake up the screen) or accidental movement (i.e. knocking into the mouse with your elbow.)
 
 \bgroup
 \def\arraystretch{1.5}
@@ -124,7 +124,7 @@ Jerk				&	Change in Acceleration over time\\
 
 
 \subsection{Outlier Filtering}
-For our setup we first went through each of the user samples and extracted each of the features, as defined above, from each mouse movement. To remove rare cases of mouse movements where the user provides a mouse movement far from the mean we implemented an outlier removal scheme. We define a mouse feature to be an outlier if it is more eccentric than 66\% of the population of the same mouse features for a single user. For example, if we are looking to find if a particular mouse feature M is an outlier:
+For our setup we first went through each of the user samples and extracted each of the features, as defined above, from each mouse movement. To remove rare cases of mouse movements where the user provides a mouse movement far from the mean we implemented an outlier removal scheme. We define a mouse feature to be an outlier if it is more eccentric than 66\% of the population of the same mouse features for a single user. For example, if we are looking to find if a particular mouse feature $M$ is an outlier:
 
 \begin{algorithm}
 
@@ -150,8 +150,8 @@ For our setup we first went through each of the user samples and extracted each 
 
 \end{algorithm}
 
-We defined the variable R, for each mouse feature, a number large enough to include most of the population while small enough to remove the noise from the data. We found optimal values for our R values after extensive experimentation we will describe later on.\\
-We created a simple algorithm for determining if a particular record of a mouse feature is an outlier outlined in Algorithm \ref{alg:algorithm1}. For a given set of mouse features from a training sample (the featurePopulation), we compared each feature in the featurePopulation against every other feature of the same type, i.e. a Single Left Click Length feature is only compared to every other Single Left Click Length feature. Then a simple tally is kept of how many of the features in the featurePopulation have a distance greater than R as shown on line 4 \& 5 of Algorithm \ref{alg:algorithm1}. On line 6 we simple restate that if the if the tally is greater than 33\% of the featurePopulation we claim the feature F is an outlier and discard it from the training set.
+We defined the variable $R$, for each mouse feature, a number large enough to include most of the population while small enough to remove the noise from the data. We found optimal values for our $R$ values after extensive experimentation we will describe later on.\\
+We created a simple algorithm for determining if a particular record of a mouse feature is an outlier outlined in Algorithm \ref{alg:algorithm1}. For a given set of mouse features from a training sample (the featurePopulation), we compared each feature in the featurePopulation against every other feature of the same type, i.e. a Single Left Click Length feature is only compared to every other Single Left Click Length feature. Then a simple tally is kept of how many of the features in the featurePopulation have a distance greater than $R$ as shown on line 4 \& 5 of Algorithm \ref{alg:algorithm1}. On line 6 we simple restate that if the if the tally is greater than 33\% of the featurePopulation we claim the feature F is an outlier and discard it from the training set.
 
 
 \begin{figure}[t]
@@ -162,25 +162,25 @@ We created a simple algorithm for determining if a particular record of a mouse 
 \subsection{Verification}
 	To authenticate a user based on their mouse movements we analyze six mouse features over the course of a sample. Our method is a simplistic user-authentication model. We create a profile based on a user's past behavior then test further samples against that profile to determine if the sample we test with is close enough to the previous profile to be considered the same user.  
 We then split the edited list of features into a testing set and a training set. For each file we create user profiles based on half of the user's sample (about 50 mouse movements on average for our samples). The profiles being simply the averages and standard deviations of each of the mouse features. The mouse movements from the sample that we did not use for the profile go into the user's testing set.
-Using a simple classification scoring method we can see how well a user profile and a testing set of data match up. For our entire set of data we took every user profile and tested each against every testing set. Our custom testing method generated a score for each test between 0 and 1 based on a simple scoring formula \( score = \frac{Number Of Accepted Features}{Total Number Of Features} \). 1 being a perfect match and 0 being a perfect mismatch. It should be noted we accept a particular feature if \(Average_{Training} - M * STD_{Training} \leq featureValue \leq Average_{Training} + M * STD_{Training} \).
+Using a simple classification scoring method we can see how well a user profile and a testing set of data match up. For our entire set of data we took every user profile and tested each against every testing set. Our custom testing method generated a score for each test between 0 and 1 based on a simple scoring formula \( score = \frac{Number Of Accepted Features}{Total Number Of Features} \). 1 being a perfect match and 0 being a perfect mismatch. It should be noted we accept a particular feature if \(Average_{Training} - $M$ * STD_{Training} \leq featureValue \leq Average_{Training} + $M$ * STD_{Training} \).
 We tested by comparing each of the mouse movements in a testing set against the users profile. If the features in the mouse movement are within $M$ standard deviations of the corresponding means in the user profile then the test gets a point. The total amount of points accrued is divided by the total amount of mouse movements in the file to generate the score.
 	
 
 
 \section{Experimental Setup}
-We had a few parameters where it wasn’t immediately apparent how to set. For the R variables we needed values that can discriminate mouse feature values that are too eccentric while keeping as much unique data as possible. To solve this we ran a script that ran the tests and found the EER over an array of values for each parameter to determine the optimal values where the EER is at its lowest. We found that an M value of 1.9, a Single Click R of 15, and a Double Click R of 175 to produce the lowest EER for our set of data.
+We had a few parameters where it wasn’t immediately apparent how to set. For the $R$ variables we needed values that can discriminate mouse feature values that are too eccentric while keeping as much unique data as possible. To solve this we ran a script that ran the tests and found the EER over an array of values for each parameter to determine the optimal values where the EER is at its lowest. We found that an $M$ value of 1.9, a Single Click $R$ of 15, and a Double Click $R$ of 175 to produce the lowest EER for our set of data.
 
 \bgroup
 \def\arraystretch{1.5}
 \addvbuffer[12pt 8pt]{\begin{tabular}{ l| l}
 \textbf{Parameter}              &\textbf{Values Tested} \\
 \hline
-Single Click R Value		& 15 20 25 30 25  \\
-Double Click R Value	& 175 180 185 190 195\\
+Single Click $R$ Value		& 15 20 25 30 25  \\
+Double Click $R$ Value	& 175 180 185 190 195\\
 M Value		& 0.7 1 1.3 1.6 1.9 2.2 2.3\\
 \end{tabular}}
 \egroup
-\captionof{table}{The values used for our parameters for testing. By varying the parameter value we experimented with 175 (5 Single Click R x 5 Double Click R x 7 M Values) different experimental set-ups. Note that we do not use any R parameter for the other features since they show less variance. In total, we experimented with 354,357 verification attempts (45 users x 45 users x 175 experimental set-ups).}
+\captionof{table}{The values used for our parameters for testing. By varying the parameter value we experimented with 175 (5 Single Click $R$ x 5 Double Click $R$ x 7 $M$ Values) different experimental set-ups. Note that we do not use any $R$ parameter for the other features since they show less variance. In total, we experimented with 354,357 verification attempts (45 users x 45 users x 175 experimental set-ups).}
 
 
 
@@ -191,7 +191,7 @@ To calculate the results of our experiment we took each users profile and tested
 \def\arraystretch{1.5}
 \addvbuffer[12pt 8pt]{\begin{tabular}{ c  l | l l l l l }
 
-         \multirow{11}{*}{\begin{sideways} \textbf{ M-Values}\end{sideways}} & \multicolumn{6}{c}{\textbf{R-Values}} \\
+         \multirow{11}{*}{\begin{sideways} \textbf{ $M$ values}\end{sideways}} & \multicolumn{6}{c}{\textbf{$R$ values}} \\
 
 
        && \textbf{175}  &  \textbf{180}  &  \textbf{185}  &  \textbf{190}  &  \textbf{195} \\
@@ -206,32 +206,32 @@ To calculate the results of our experiment we took each users profile and tested
   & \textbf{2.5}	&7.71\%	&8.00\%	&8.00\%	&7.89\%	&7.50\%\\
 \end{tabular}}
 \egroup
-\captionof{table}{The EER rates found across multiple parameter values. Each column is a separate double click R-value while each row is a separate M-value. The entire table is tested with one single click R-value set to 20ms.}
+\captionof{table}{The EER rates found across multiple parameter values. Each column is a separate double click $R$ value while each row is a separate $M$ value. The entire table is tested against one single click $R$ value set to 20ms.}
 
 
 \begin{figure*}[t!]
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{Optimal}
-  \caption{Optimal Settings\\Single Click R = 20ms Double Click R = 185ms\\M-Value = 2.2}
+  \caption{Optimal Settings\\Single Click $R$ = 20ms Double Click $R$ = 185ms\\M-Value = 2.2}
   \label{fig:sfig1}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{7M}
-  \caption{Single Click R = 35ms Double Click R = 195ms\\M-Value = 0.7}
+  \caption{Single Click $R$ = 35ms Double Click $R$ = 195ms\\M-Value = 0.7}
   \label{fig:sfig2}
 \end{subfigure}
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{M1}
-  \caption{Single Click R = 20ms Double Click R = 180ms\\M-Value = 1}
+  \caption{Single Click $R$ = 20ms Double Click $R$ = 180ms\\M-Value = 1}
   \label{fig:sfig3}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{19M}
-  \caption{Single Click R = 30ms Double Click R = 190m\\ M-Value = 1.9}
+  \caption{Single Click $R$ = 30ms Double Click $R$ = 190m\\ M-Value = 1.9}
   \label{fig:sfig4}
 \end{subfigure}
 \caption{Plots of the False Rejection Rate and the False Acceptance Rate for four different parameter settings. The point at which the FRR and FAR intersect is the Equal Error Rate. }
@@ -242,36 +242,36 @@ To calculate the results of our experiment we took each users profile and tested
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{15.eps}
-  \caption{Single Click R = 15ms \\Local Max = 24.29\% Local Min = 8.33\% \\Local Average = 14.34\% Local STD = 5.08\%}
+  \caption{Single Click $R$ = 15ms \\Local Max = 24.29\% Local Min = 8.33\% \\Local Average = 14.34\% Local STD = 5.08\%}
 \centering
   \label{fig:sfig1}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{25.eps}
-  \caption{Single Click R = 25ms \\Local Max = 30.02\% Local Min = 6.77\% \\Local Average = 12.57\% Local STD = 6.07\%}
+  \caption{Single Click $R$ = 25ms \\Local Max = 30.02\% Local Min = 6.77\% \\Local Average = 12.57\% Local STD = 6.07\%}
   \label{fig:sfig2}
 \end{subfigure}
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{30.eps}
-  \caption{Single Click R = 30ms \\Local Max = 29.96\% Local Min = 6.72\% \\Local Average = 12.58\% Local STD = 6.13\%}
+  \caption{Single Click $R$ = 30ms \\Local Max = 29.96\% Local Min = 6.72\% \\Local Average = 12.58\% Local STD = 6.13\%}
   \label{fig:sfig3}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
   \centering
   \includegraphics[width=.8\linewidth]{35.eps}
-  \caption{Single Click R = 35ms \\Local Max = 26\% Local Min = 7.04\%\\Local Average = 13.82\% Local STD = 5.54\%}
+  \caption{Single Click $R$ = 35ms \\Local Max = 26\% Local Min = 7.04\%\\Local Average = 13.82\% Local STD = 5.54\%}
   \label{fig:sfig4}
 \end{subfigure}
-\caption{Scatter plots of EER over the ranges of the parameter values we chose. The X-axis is Double Click R-Values, the Y-axis is the EER. Each plot is a separate Single Click R value. \\Global Max = 30.02\% Global Min = 6.72\% Global Average = 13.19\% Global STD = 5.77\%}
+\caption{Scatter plots of EER over the ranges of the parameter values we chose. The X-axis is Double Click R-Values, the Y-axis is the EER. Each plot is a separate Single Click $R$ value. \\Global Max = 30.02\% Global Min = 6.72\% Global Average = 13.19\% Global STD = 5.77\%}
 \label{fig:fig}
 \end{figure*}
 
 
 \section{Conclusion}
 
-Our comprehensive experiment which comprises X thousands verification attempts carried over 45 users, shows the effectiveness of our method. On average, the EER we found was 13.42\%. The lowest EER was found to be 6.72\%. In future, we want to test our method on more user samples. To improve accuracy even further, we want to set the parameter values (R and M) for each users separately instead of adopting generic values. We believe that, a simple system with impressive accuracy such as ours, can easily be considered for continuously verify system users in real time.    
+Our comprehensive experiment which comprises X thousands verification attempts carried over 45 users, shows the effectiveness of our method. On average, the EER we found was 13.42\%. The lowest EER was found to be 6.72\%. In future, we want to test our method on more user samples. To improve accuracy even further, we want to set the parameter values ($R$ and $M$) for each users separately instead of adopting generic values. We believe that, a simple system with impressive accuracy such as ours, can easily be considered for continuously verify system users in real time.    
 
 \section*{Acknowledgment}
 We acknowledge the acknowledged acknowledgees.
