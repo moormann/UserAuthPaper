@@ -79,21 +79,34 @@ The most promising existing mouse dynamic authentication research achieved false
 
 One method of mouse authentication that has seen very promising and positive results is using the mouse as a login procedure. One research procedure had users use the mouse to login as if unlocking a combination lock. They saw successful results with low false rejection and false acceptance rates \cite{HJ}. Another research procedure had users draw a complex figure with the mouse to login. They saw a 93\% successful verification rate with their research \cite{Syu}. While the results of mouse authentication through the use of a mouse to draw a pattern to login into a system are promising, it is not as practical as a continuous verification system would be. Drawing a pattern with the mouse is more easily replicated than a user’s specific and unique everyday normal use of the mouse.   
 
-Our research on mouse dynamic user authentication addresses the limitations talked about. We have used a larger population base to take our samples from to increase our accuracy. We are also working to achieve low false acceptance and false rejection rates. With our research, we have taken a larger variety of mouse characteristics into consideration when measuring the uniqueness of a user’s mouse characteristics. Using a larger amount of mouse characteristics can build a more complete and specific profile for each user. With more detailed user profiles, there is less likelihood for another user to create similar results and ultimately a false acceptance as another user. More detailed profiles also capture a more accurate representation of a user, which can also lower the amount of false rejection rates.
+Our research on mouse dynamic user authentication addresses the limitations talked about. We have used a larger population base to take our samples from to increase our accuracy. With our research, we have taken a larger variety of mouse characteristics into consideration when measuring the uniqueness of a user’s mouse characteristics. Using a larger amount of mouse characteristics can build a more complete and specific profile for each user. 
+Contribution of this work follows:
+
+\begin{description}
+  \item[$\bullet$] We propose a simple method of user verification using mouse dynamics. Unlike existing methods which rely on sophisticated calculations, our method uses basic statistical information. A light weight system such as ours, is more suitable for continuous verification in real time.  
+  \item[$\bullet$] We performed 354,375 rigorous tests under 175 experimental setups. Our dataset containing mouse activities collected from 45 users, was large enough for a sustainable test results. Our system, showed impressive results with EER as low as 6.72\%.
+\end{description} 
+
+
+We organized the paper as follows. In Section II we discuss data collection. In Section III we present the feature extraction method. In Section IV we present our method of continuous verification. In Section V we discuss the experimental setup. In Section VI we present our results and analysis. We conclude in Section VII.   
+     
+
+
 
 
 
 \section{Data Collection}
 We wanted our data set to include movements that were natural to best simulate day to day actions a user would perform on the computer. This is to have a more relevant set of data that our authentication method would see in a more practical environment. To do this, we asked a class of students to record their mouse movements. The students were instructed to perform any activity on the computer they normally would for an hour period.
 	In order to log the mouse activity of users we created a simple mouse logger.  The logger was a small piece of software that ran on the windows operating system. The logger, when run on a machine, logged the position of the cursor using the windows method GetCursorPos(), the state of the left and right mouse buttons (up or down), and a timestamp every 15.6ms. 15.6ms being the average default timer resolution that windows supports. The resulting log was then placed into a text file. 
-We then screened the samples and removed samples with very few (0 to 10) movements and samples that weren't an hour long. Post-screening we had 25 valid user samples.  Our samples consisted of university students and their friends and family collected from late November 2014 to early December 2014.
+We then screened the samples and removed samples with very few (0 to 10) movements and samples that weren't an hour long. Post-screening we had 45 valid user samples. Around 76,500 mouse activities have been processed for our experiments. Our samples consisted of university students collected from late November 2014 to early December 2014. Table I shows some statistics of collected samples.
+
 
 
 \bgroup
 \captionof{table}{Overview of the samples collected}
 \def\arraystretch{1.5}
 \addvbuffer[12pt 8pt]{\begin{tabular}{l*{6}{c}r}
-\textbf{Type}              &\textbf{ Maximum} & \textbf{Minimum} & \textbf{Average} \\
+\textbf{Activity}              &\textbf{ Maximum} & \textbf{Minimum} & \textbf{Average} \\
 \hline
 Left Clicks	& 716 & 37 & 547.84 \\
 Right Clicks	& 690 & 0 & 122.8 \\
@@ -145,7 +158,9 @@ Jerk				&	Change in Acceleration over time\\
 
 
 \subsection{Outlier Filtering}
-For our setup we first went through each of the user samples and extracted each of the features, as defined above, from each mouse movement. To remove rare cases of mouse movements where the user provides a mouse movement far from the mean we implemented an outlier removal scheme. We define a mouse feature to be an outlier if it is more eccentric than 66\% of the population of the same mouse features for a single user.
+
+For our setup we first went through each of the user samples and extracted each of the features, as defined above, from each mouse movement. To remove rare cases of mouse movements where the user provides a mouse movement far from the normal, we implemented an outlier removal scheme. We define a mouse feature to be an outlier if it is more eccentric than 66\% of the population of the same mouse features for a single user. For example, if we are looking to find if a particular mouse feature $M$ is an outlier:
+
 
 \begin{algorithm}
 
@@ -222,7 +237,16 @@ M value		& 0.7 1 1.3 1.6 1.9 2.2 2.3\\
 
 
 \section{Experimental Results \& Analysis}
-To calculate the results of our experiment we took each users profile and tested that against every other set of testing data. These values in this generated confusion matrix are then used to calculate the false rejection rate and false acceptance rate. After finding the best settings for our parameters we obtained 6.7\% equal error rate. 
+
+To calculate the results of our experiment we took each users profile and tested that against every other set of testing data. Therefore, for experimental setup, we generated 2025 (45 $\times$ 45) verification scores. We then calculated the False Reject Rate (FRR) and Impostor Pass Rate (IPR) values for varying threshold values from 0 to 1 with a stepsize of 0.01. We plotted 1000 FRR and IPR values as shown in each subfigure in Figure 3. For space constraint, we show FRRs and IPRs for four experimental setup out of 175 setups. In each subfigure, the EER is maked as the crossover point between FRR and IPR curves. In total, we generated 175 EERs from all setups. In Table IV, 35 EER values generated by varying double click $R$ and $M$ values when single click value set to 20ms, are listed. In Figure 4, EER values are shown for four other single click $R$ values. From the figures, our observations are as follows:
+
+\begin{description}
+  \item[$\bullet$] The Lowest EER achieved is 6.72\% (see Figure 4(c)) when $M$= 2.2, single click $R$=20ms and double click $R$=185ms. Average EER is 13.19\% and standard deviation is 5.77\%. 
+  \item[$\bullet$] Among the parameters, $M$ is found to have greater influence on accuray (see the curves in subfigure in Figure 4). This urges to explore setting up the $M$ value for each user seperately rather than generic one.
+  \item[$\bullet$] Single click R value also show some level of influence on accuray. EERs in Figure 4 (b, c) are lower than EERs in Figure 4 (a, d). It is worth mentioning that, number of single clicks are found to be far more than other activities.        
+
+\end{description} 
+
 
 \bgroup
 \captionof{table}{The EER rates found across multiple parameter values. Each column is a separate double click $R$ value while each row is a separate $M$ value. The entire table is tested against one single click $R$ value set to 20ms.}
